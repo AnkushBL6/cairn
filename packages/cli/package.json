@@ -1,0 +1,21 @@
+{
+  "name": "@cairn/cli",
+  "version": "0.1.0",
+  "description": "The `cairn` command — wires the graph engine and studio to disk: run a brainstorming session, build the project graph, and resume with full context in a fresh session.",
+  "type": "module",
+  "bin": {
+    "cairn": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cairn/core": "workspace:*",
+    "@cairn/studio": "workspace:*"
+  },
+  "license": "MIT"
+}

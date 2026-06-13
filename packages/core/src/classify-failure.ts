@@ -12,7 +12,8 @@ export interface FailureClassification {
  * A test suite that "fails to compile/collect" — the test file itself is broken,
  * so nothing meaningful was exercised.
  */
-const COLLECTION = /syntaxerror|failed to collect|test suite failed to run|unexpected token|cannot use import statement|indentationerror/i;
+const COLLECTION =
+  /syntaxerror|failed to collect|test suite failed to run|unexpected token|cannot use import statement|indentationerror/i;
 
 /**
  * The unit under test isn't reachable: the symbol/module doesn't exist, isn't a

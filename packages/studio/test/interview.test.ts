@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { type Interview, isAnswerValid, type Question, validateInterview } from '../src/interview.js';
+import {
+  type Interview,
+  type Question,
+  isAnswerValid,
+  validateInterview,
+} from '../src/interview.js';
 
 function baseInterview(questions: Question[]): Interview {
   return { sessionId: 's1', title: 'Test', questions };

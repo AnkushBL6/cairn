@@ -135,9 +135,9 @@ describe('CairnGraph — supersede (never delete)', () => {
     // but it is retained for the audit trail
     expect(g.query({ type: 'decision', includeSuperseded: true })).toHaveLength(2);
     // and a supersedes edge now exists
-    expect(g.neighbors(newD.id, { edge: 'supersedes', direction: 'out' }).map((n) => n.id)).toEqual([
-      oldD.id,
-    ]);
+    expect(g.neighbors(newD.id, { edge: 'supersedes', direction: 'out' }).map((n) => n.id)).toEqual(
+      [oldD.id],
+    );
   });
 
   it('throws when superseding across mismatched ids', () => {

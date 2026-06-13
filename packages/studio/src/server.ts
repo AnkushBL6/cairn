@@ -2,9 +2,9 @@ import http from 'node:http';
 import {
   type Answer,
   type Interview,
-  isAnswerValid,
   type Question,
   type Transcript,
+  isAnswerValid,
 } from './interview.js';
 import { renderWizard } from './wizard.js';
 

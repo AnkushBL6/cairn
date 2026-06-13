@@ -6,11 +6,11 @@ import {
   type CairnNode,
   EDGE_TYPES,
   type GraphDoc,
+  NODE_STATUSES,
+  NODE_TYPES,
   type NeighborOptions,
   type NewEdge,
   type NewNode,
-  NODE_STATUSES,
-  NODE_TYPES,
   type QueryFilter,
 } from './types.js';
 

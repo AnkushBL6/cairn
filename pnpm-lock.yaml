@@ -27,6 +27,15 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.19.21)(jsdom@25.0.1)
 
+  packages/cli:
+    dependencies:
+      '@cairn/core':
+        specifier: workspace:*
+        version: link:../core
+      '@cairn/studio':
+        specifier: workspace:*
+        version: link:../studio
+
   packages/core: {}
 
   packages/studio: {}

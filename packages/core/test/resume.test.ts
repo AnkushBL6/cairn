@@ -23,9 +23,7 @@ describe('summarizeForResume — what a fresh, context-free session reads', () =
 
     expect(brief.goals.map((n) => n.title)).toEqual(['Give the agent continuity']);
     expect(brief.acceptedDecisions.map((n) => n.title)).toEqual(['Portable file graph']);
-    expect(brief.openQuestions.map((n) => n.title)).toEqual([
-      'How adaptive is the interview?',
-    ]);
+    expect(brief.openQuestions.map((n) => n.title)).toEqual(['How adaptive is the interview?']);
     expect(brief.risks.map((n) => n.title)).toEqual(['Headless environments have no browser']);
   });
 
