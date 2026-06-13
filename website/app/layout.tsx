@@ -1,22 +1,17 @@
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono, Sora } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
-// Self-hosted at build time by Next — no render-blocking external request, no layout shift.
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const sora = Sora({
-  subsets: ['latin'],
-  weight: ['600', '700', '800'],
-  variable: '--font-sora',
-  display: 'swap',
-});
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
+// Premium pairing: Geist (Vercel's typeface) for UI + a geometric grotesk for display.
+const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
 
 const description =
   'Cairn is the skillpack that gives your AI agent continuity: brainstorm into a persistent knowledge graph, build test-first with real guarantees, and pull in any skill on demand.';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cairn.dev'),
+  metadataBase: new URL('https://cairn-inky-five.vercel.app'),
   title: {
     default: 'Cairn — your AI never starts from zero',
     template: '%s · Cairn',
@@ -36,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cairn — your AI never starts from zero',
     description,
-    url: 'https://cairn.dev',
+    url: 'https://cairn-inky-five.vercel.app',
     siteName: 'Cairn',
     type: 'website',
   },
@@ -48,15 +43,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#070a0f',
+  themeColor: '#070a0e',
   width: 'device-width',
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable}`}
+    >
+      <body>
+        <div className="grain" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
