@@ -62,10 +62,13 @@ function typeText(win: TestWindow, doc: Document, value: string): void {
 }
 
 describe('wizard client (executed in jsdom)', () => {
-  it('renders the first question on load', () => {
+  it('renders the first question on load, with an accessible label', () => {
     const { doc } = boot(renderWizard(interview));
     expect(doc.querySelector('.prompt')?.textContent).toBe('Why build this?');
     expect(doc.querySelector('#count')?.textContent).toBe('1 / 3');
+    // the input is programmatically labelled by the prompt (a11y)
+    const input = doc.querySelector('#stage input[type=text]') as HTMLInputElement;
+    expect(input.getAttribute('aria-label')).toBe('Why build this?');
   });
 
   it('refuses to advance past a required, unanswered question', () => {

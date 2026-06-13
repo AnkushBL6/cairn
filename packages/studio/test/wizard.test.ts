@@ -26,6 +26,9 @@ describe('renderWizard', () => {
     const dom = new JSDOM(html);
     expect(dom.window.document.querySelector('#stage')).not.toBeNull();
     expect(dom.window.document.querySelector('#next')).not.toBeNull();
+    // accessibility landmarks (audited with axe-core, locked in here)
+    expect(dom.window.document.querySelector('main')).not.toBeNull();
+    expect(dom.window.document.querySelector('h1')).not.toBeNull();
   });
 
   it('embeds the interview as valid, recoverable JSON', () => {

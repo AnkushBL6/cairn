@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -209,5 +209,32 @@ describe('runCli — the full command dispatch', () => {
 
     expect(await pending).toBe(0);
     expect(out.join('\n')).toContain('transcriptPath');
+  });
+
+  it('fails gracefully (exit 1) on an unparseable graph.json', async () => {
+    await mkdir(join(dir, '.cairn'), { recursive: true });
+    await writeFile(join(dir, '.cairn', 'graph.json'), '{ not valid json');
+    expect(await runCli(['resume'], io())).toBe(1);
+    expect(err.join('\n')).toMatch(/cairn:/);
+  });
+
+  it('rejects a structurally-corrupt graph (dangling edge) on resume', async () => {
+    await mkdir(join(dir, '.cairn'), { recursive: true });
+    await writeFile(
+      join(dir, '.cairn', 'graph.json'),
+      JSON.stringify({
+        version: 1,
+        nodes: [],
+        edges: [{ id: 'e', type: 'refines', from: 'x', to: 'y' }],
+      }),
+    );
+    expect(await runCli(['resume'], io())).toBe(1);
+    expect(err.join('\n')).toMatch(/integrity|endpoint/i);
+  });
+
+  it('fails gracefully (exit 1) on malformed ops json', async () => {
+    const ops = join(dir, 'bad.json');
+    await writeFile(ops, '{ broken');
+    expect(await runCli(['graph', 'apply', ops], io())).toBe(1);
   });
 });

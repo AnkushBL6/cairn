@@ -64,7 +64,7 @@ body {
   transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .body { padding: 34px 34px 26px; }
-.title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; margin: 0 0 18px; }
+.title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; margin: 0 0 18px; }
 .count { color: var(--accent); font-weight: 600; }
 .stage { min-height: 220px; }
 .q-enter { animation: slideIn 360ms cubic-bezier(0.22, 1, 0.36, 1); }
@@ -213,7 +213,7 @@ export const WIZARD_JS = String.raw`
   function renderQuestion(q) {
     var wrap = el('div', 'q-enter');
     titleCount.textContent = (index + 1) + ' / ' + questions.length;
-    wrap.appendChild(el('p', 'prompt', q.prompt));
+    wrap.appendChild(el('h2', 'prompt', q.prompt));
     if (q.help) wrap.appendChild(el('p', 'help', q.help));
     var field = el('div', 'field');
     var value = currentValue(q);
@@ -222,6 +222,7 @@ export const WIZARD_JS = String.raw`
       var input = el('input');
       input.type = 'text';
       input.value = value || '';
+      input.setAttribute('aria-label', q.prompt);
       if (q.placeholder) input.placeholder = q.placeholder;
       input.addEventListener('input', function () { answers[q.id] = input.value; setError(''); });
       input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); go(1); } });
@@ -230,6 +231,7 @@ export const WIZARD_JS = String.raw`
     } else if (q.kind === 'longtext') {
       var ta = el('textarea');
       ta.value = value || '';
+      ta.setAttribute('aria-label', q.prompt);
       if (q.placeholder) ta.placeholder = q.placeholder;
       ta.addEventListener('input', function () { answers[q.id] = ta.value; setError(''); });
       field.appendChild(ta);
@@ -272,6 +274,7 @@ export const WIZARD_JS = String.raw`
       var row = el('div', 'scale');
       var range = el('input');
       range.type = 'range';
+      range.setAttribute('aria-label', q.prompt);
       range.min = String(q.min != null ? q.min : 1);
       range.max = String(q.max != null ? q.max : 10);
       range.value = String(value);
