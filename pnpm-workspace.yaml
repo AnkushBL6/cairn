@@ -3,3 +3,7 @@ packages:
 allowBuilds:
   '@biomejs/biome': true
   esbuild: true
+# vite is dev-only (vitest's bundler — never shipped). Force a patched version
+# to keep `pnpm audit` clean; the latest satisfying build is used.
+overrides:
+  vite: '>=6.4.2'
