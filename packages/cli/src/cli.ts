@@ -2,6 +2,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
+  classifyTestFailure,
   EDGE_TYPES,
   type EdgeType,
   NODE_STATUSES,
@@ -38,6 +39,7 @@ Commands:
   graph edge --type T --from id --to id   Connect two nodes
   graph show                   Print the project graph (Mermaid + counts)
   resume                       Print the context a fresh session should read
+  classify [file] [--assert-red]   Classify test output: real red vs missing-symbol
   help | version
 
 Global: --root <dir>  operate on a project rooted elsewhere (default: cwd)`;
@@ -84,6 +86,21 @@ function num(flags: Record<string, string | boolean>, key: string): number | und
 function fail(message: string): never {
   console.error(`cairn: ${message}`);
   process.exit(1);
+}
+
+function readStdin(): Promise<string> {
+  return new Promise((resolve) => {
+    if (process.stdin.isTTY) {
+      resolve('');
+      return;
+    }
+    let data = '';
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', (chunk) => {
+      data += chunk;
+    });
+    process.stdin.on('end', () => resolve(data));
+  });
 }
 
 function asNodeType(value: string | undefined): NodeType {
@@ -209,6 +226,15 @@ async function main(): Promise<void> {
     case 'resume':
       console.log(formatResume(await store.resumeBrief()));
       break;
+    case 'classify': {
+      const file = _[1];
+      const output = file ? await readFile(file, 'utf8') : await readStdin();
+      const result = classifyTestFailure(output);
+      console.log(JSON.stringify(result, null, 2));
+      // For scripting the TDD guarantee: exit non-zero unless this is a real red.
+      if (flags['assert-red'] && !result.isRealRed) process.exit(2);
+      break;
+    }
     case 'version':
       console.log(VERSION);
       break;
