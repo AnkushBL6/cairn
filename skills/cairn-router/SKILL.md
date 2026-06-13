@@ -85,8 +85,8 @@ npx skills init
 ## Housekeeping
 
 ```bash
-npx skills check     # what's installed / outdated
-npx skills update    # update installed skills
+npx skills list      # what's installed (alias: ls)
+npx skills update    # update installed skills to latest
 ```
 
 ## Red Flags

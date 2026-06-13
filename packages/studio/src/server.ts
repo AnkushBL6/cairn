@@ -109,9 +109,34 @@ export class StudioServer {
     });
   }
 
+  /**
+   * Allow a mutating request only if it isn't a cross-site browser request.
+   * Non-browser clients (the CLI, curl, tests) send no Origin and are allowed;
+   * a real browser only omits Origin or sends our own localhost origin for
+   * same-origin requests. This blocks a malicious page from POSTing to the
+   * loopback server it happened to find.
+   */
+  private isAllowedOrigin(req: http.IncomingMessage): boolean {
+    const origin = req.headers.origin;
+    if (!origin) return true;
+    try {
+      const url = new URL(origin);
+      const localhost = url.hostname === '127.0.0.1' || url.hostname === 'localhost';
+      return localhost && url.port === String(this.boundPort);
+    } catch {
+      return false;
+    }
+  }
+
   private async handle(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
     const { pathname } = new URL(req.url ?? '/', 'http://localhost');
     const method = req.method ?? 'GET';
+
+    // CSRF guard: reject cross-site mutating requests.
+    if (method === 'POST' && !this.isAllowedOrigin(req)) {
+      sendJson(res, 403, { error: 'forbidden origin' });
+      return;
+    }
 
     if (method === 'GET' && pathname === '/') {
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });

@@ -125,4 +125,24 @@ describe('StudioServer', () => {
     expect(buffer).toContain('event: question');
     expect(buffer).toContain('extra');
   });
+
+  it('rejects a cross-origin mutating request (CSRF guard)', async () => {
+    const url = await boot();
+    const res = await fetch(`${url}/api/finish`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: 'http://evil.example.com' },
+      body: JSON.stringify({ sessionId: 's', title: 't', answers: [] }),
+    });
+    expect(res.status).toBe(403);
+  });
+
+  it('allows a same-origin mutating request', async () => {
+    const url = await boot();
+    const res = await fetch(`${url}/api/answer`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', origin: url },
+      body: JSON.stringify({ questionId: 'name', value: 'Ada' }),
+    });
+    expect(res.status).toBe(200);
+  });
 });
