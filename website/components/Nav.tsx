@@ -26,7 +26,7 @@ export function Nav() {
 
         <div className="flex items-center gap-3">
           <a
-            href="https://github.com/cairn-labs/cairn"
+            href="https://github.com/AnkushBL6/cairn"
             className="hidden text-sm text-slate-300 transition hover:text-white sm:block"
           >
             GitHub

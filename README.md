@@ -59,7 +59,7 @@ Four guarantees: **G1** red for the right reason · **G2** proof of execution ·
 
 ```bash
 # Install the skills into your agent (Claude Code, Cursor, Copilot, …)
-npx skills add cairn-labs/cairn
+npx skills add AnkushBL6/cairn
 
 # Or use the CLI directly in a repo
 cairn init

@@ -74,7 +74,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={320}>
               <div className="mt-8 max-w-md">
-                <CommandLine command="npx skills add cairn-labs/cairn" />
+                <CommandLine command="npx skills add AnkushBL6/cairn" />
               </div>
             </Reveal>
           </div>
@@ -347,10 +347,10 @@ export default function Home() {
                   skills standard.
                 </p>
                 <div className="mx-auto mt-8 max-w-md">
-                  <CommandLine command="npx skills add cairn-labs/cairn" />
+                  <CommandLine command="npx skills add AnkushBL6/cairn" />
                 </div>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-                  <a href="https://github.com/cairn-labs/cairn" className="btn btn-primary">
+                  <a href="https://github.com/AnkushBL6/cairn" className="btn btn-primary">
                     Star on GitHub
                   </a>
                   <a href="#top" className="btn btn-ghost">

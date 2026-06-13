@@ -12,7 +12,7 @@ export function Footer() {
           Built test-first with Cairn. Your AI never starts from zero.
         </p>
         <div className="flex items-center gap-6 text-sm text-slate-400">
-          <a href="https://github.com/cairn-labs/cairn" className="transition hover:text-white">
+          <a href="https://github.com/AnkushBL6/cairn" className="transition hover:text-white">
             GitHub
           </a>
           <a href="#install" className="transition hover:text-white">
