@@ -8,4 +8,6 @@
 
 export { CairnStore } from './store.js';
 export * from './commands.js';
+export { type CliIO, HELP, runCli, VERSION } from './run.js';
+export { numFlag, parseArgs, strFlag } from './args.js';
 export { openBrowser } from './open.js';

@@ -187,4 +187,65 @@ describe('CairnGraph — serialization', () => {
     const next = restored.addNode({ type: 'requirement', title: 'Persist graph' });
     expect(next.id).toBe('requirement--persist-graph--2');
   });
+
+  it('rejects a document with the wrong version', () => {
+    expect(() => CairnGraph.fromJSON({ version: 2, nodes: [], edges: [] } as never)).toThrow(
+      /malformed document/i,
+    );
+  });
+
+  it('rejects a node with an invalid type', () => {
+    const doc = {
+      version: 1,
+      nodes: [
+        {
+          id: 'x',
+          type: 'banana',
+          title: 'X',
+          body: '',
+          status: 'open',
+          tags: [],
+          createdInSession: 's',
+          createdAt: FIXED_NOW,
+        },
+      ],
+      edges: [],
+    };
+    expect(() => CairnGraph.fromJSON(doc as never)).toThrow(/malformed node/i);
+  });
+
+  it('rejects duplicate node ids', () => {
+    const node = {
+      id: 'goal--a',
+      type: 'goal' as const,
+      title: 'A',
+      body: '',
+      status: 'open' as const,
+      tags: [],
+      createdInSession: 's',
+      createdAt: FIXED_NOW,
+    };
+    expect(() =>
+      CairnGraph.fromJSON({ version: 1, nodes: [node, { ...node }], edges: [] }),
+    ).toThrow(/duplicate node id/i);
+  });
+
+  it('rejects an illegal edge in a loaded document', () => {
+    const mk = (id: string) => ({
+      id,
+      type: 'goal' as const,
+      title: id,
+      body: '',
+      status: 'open' as const,
+      tags: [],
+      createdInSession: 's',
+      createdAt: FIXED_NOW,
+    });
+    const doc = {
+      version: 1 as const,
+      nodes: [mk('goal--a'), mk('goal--b')],
+      edges: [{ id: 'e', type: 'depends_on' as const, from: 'goal--a', to: 'goal--b' }],
+    };
+    expect(() => CairnGraph.fromJSON(doc)).toThrow(/illegal edge/i);
+  });
 });

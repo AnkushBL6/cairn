@@ -103,4 +103,26 @@ describe('StudioServer', () => {
     const url = await boot();
     expect((await fetch(`${url}/nope`)).status).toBe(404);
   });
+
+  it('streams a pushed follow-up question to a connected SSE client', async () => {
+    const url = await boot();
+    const res = await fetch(`${url}/api/events`);
+    expect(res.headers.get('content-type')).toMatch(/text\/event-stream/);
+    const reader = res.body?.getReader();
+    if (!reader) throw new Error('no SSE stream');
+
+    server?.pushQuestions([{ id: 'extra', kind: 'text', prompt: 'One more?' }]);
+
+    const decoder = new TextDecoder();
+    let buffer = '';
+    while (!buffer.includes('extra')) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      buffer += decoder.decode(chunk.value, { stream: true });
+    }
+    await reader.cancel();
+
+    expect(buffer).toContain('event: question');
+    expect(buffer).toContain('extra');
+  });
 });

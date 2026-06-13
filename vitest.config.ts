@@ -14,7 +14,11 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['packages/*/src/**/*.ts'],
-      exclude: ['packages/*/src/**/*.test.ts', 'packages/*/src/index.ts'],
+      exclude: [
+        'packages/*/src/**/*.test.ts',
+        'packages/*/src/index.ts',
+        'packages/cli/src/cli.ts', // trivial bin shim: just calls runCli + sets exit code
+      ],
       reporter: ['text', 'html'],
     },
   },

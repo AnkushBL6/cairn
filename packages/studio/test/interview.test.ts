@@ -86,4 +86,29 @@ describe('isAnswerValid', () => {
     expect(isAnswerValid(q, true)).toBe(true);
     expect(isAnswerValid(q, 'true')).toBe(false);
   });
+
+  it('accepts any string for non-required text', () => {
+    const q: Question = { id: 'q', kind: 'longtext', prompt: 'Notes?' };
+    expect(isAnswerValid(q, '')).toBe(true);
+    expect(isAnswerValid(q, 'anything')).toBe(true);
+    expect(isAnswerValid(q, 5)).toBe(false);
+  });
+
+  it('treats a scale with no explicit bounds as unbounded', () => {
+    const q: Question = { id: 'q', kind: 'scale', prompt: 'Rate' };
+    expect(isAnswerValid(q, -1000)).toBe(true);
+    expect(isAnswerValid(q, Number.NaN)).toBe(false);
+  });
+
+  it('requires at least one selection for a required multi', () => {
+    const q: Question = {
+      id: 'q',
+      kind: 'multi',
+      prompt: 'Pick',
+      required: true,
+      choices: [{ value: 'a', label: 'A' }],
+    };
+    expect(isAnswerValid(q, [])).toBe(false);
+    expect(isAnswerValid(q, ['a'])).toBe(true);
+  });
 });
