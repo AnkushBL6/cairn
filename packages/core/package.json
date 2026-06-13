@@ -1,0 +1,20 @@
+{
+  "name": "@cairn/core",
+  "version": "0.1.0",
+  "description": "Cairn's knowledge-graph engine: typed nodes/edges, integrity invariants, renderers, resume briefs, and the test-failure classifier that backs the guaranteed-TDD workflow.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "license": "MIT"
+}
