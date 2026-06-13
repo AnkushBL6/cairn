@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="border-t border-white/5 py-12">
       <div className="container-page flex flex-col items-center justify-between gap-6 sm:flex-row">
         <div className="flex items-center gap-2.5 font-display font-bold text-white">
-          <span className="grid h-6 w-6 place-items-center rounded-md bg-gradient-to-br from-sky to-violet text-xs text-ink-950">
+          <span className="grid h-6 w-6 place-items-center rounded-md bg-gradient-to-br from-acid to-teal text-xs text-ink-950">
             ▲
           </span>
           Cairn

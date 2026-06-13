@@ -5,19 +5,22 @@ export default {
   theme: {
     extend: {
       colors: {
+        // OLED slate ("code dark")
         ink: {
-          950: '#070a0f',
-          900: '#0a0e15',
+          950: '#06090f',
+          900: '#090e16',
           850: '#0d1320',
-          800: '#111a26',
-          700: '#16212f',
-          600: '#1d2a3a',
-          500: '#27384c',
+          800: '#111a27',
+          700: '#172234',
+          600: '#202f47',
+          500: '#2b3a55',
         },
-        sky: { DEFAULT: '#7dd3fc', soft: '#bae6fd' },
-        violet: { DEFAULT: '#a78bfa', soft: '#c4b5fd' },
-        mint: '#5eead4',
-        sand: '#f5c98a',
+        // the "run green" — a passing test, the heart of Cairn's identity
+        acid: { DEFAULT: '#22c55e', soft: '#4ade80' },
+        mint: '#34d399',
+        teal: '#2dd4bf',
+        amber: '#f5b971',
+        rose: '#fb7185',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
@@ -35,10 +38,6 @@ export default {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
-        },
-        shimmer: {
-          '0%': { backgroundPosition: '0% 50%' },
-          '100%': { backgroundPosition: '200% 50%' },
         },
       },
       animation: {

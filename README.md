@@ -39,6 +39,8 @@ idea ─▶ interactive studio ─▶ knowledge graph (.cairn/) ─▶ test-firs
 | **cairn-backend** | Build typed, observable services with logic built test-first. |
 | **cairn-router** | Discover & install any other skill on demand (`npx skills`). |
 
+> The build skills stand on the best in the ecosystem: **cairn-frontend** folds in Vercel's React best-practices (kill waterfalls, server-first, bundle discipline), **cairn-backend** folds in Vercel Functions runtime constraints, and all of them adopt **Andrej Karpathy's** coding principles — think before coding, simplicity first, surgical changes, goal-driven verification.
+
 ### Website (`website/`)
 
 A production-grade Next.js marketing site. Deploy to Vercel with **Root Directory = `website`**.

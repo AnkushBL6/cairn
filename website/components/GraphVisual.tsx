@@ -1,12 +1,12 @@
 type Node = { id: string; x: number; y: number; label: string; color: string };
 
 const NODES: Node[] = [
-  { id: 'goal', x: 230, y: 60, label: 'goal', color: '#7dd3fc' },
-  { id: 'req', x: 112, y: 156, label: 'requirement', color: '#7dd3fc' },
-  { id: 'dec', x: 356, y: 146, label: 'decision', color: '#a78bfa' },
-  { id: 'con', x: 398, y: 260, label: 'constraint', color: '#f5c98a' },
-  { id: 'cmp', x: 124, y: 300, label: 'component', color: '#5eead4' },
-  { id: 'tst', x: 250, y: 332, label: 'test', color: '#a78bfa' },
+  { id: 'goal', x: 230, y: 60, label: 'goal', color: '#22c55e' },
+  { id: 'req', x: 112, y: 156, label: 'requirement', color: '#4ade80' },
+  { id: 'dec', x: 356, y: 146, label: 'decision', color: '#2dd4bf' },
+  { id: 'con', x: 398, y: 260, label: 'constraint', color: '#f5b971' },
+  { id: 'cmp', x: 124, y: 300, label: 'component', color: '#34d399' },
+  { id: 'tst', x: 250, y: 332, label: 'test', color: '#86efac' },
   { id: 'art', x: 360, y: 352, label: 'artifact', color: '#5eead4' },
 ];
 
@@ -36,8 +36,8 @@ export function GraphVisual() {
     >
       <defs>
         <linearGradient id="edgeGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#7dd3fc" />
-          <stop offset="1" stopColor="#a78bfa" />
+          <stop offset="0" stopColor="#22c55e" />
+          <stop offset="1" stopColor="#2dd4bf" />
         </linearGradient>
       </defs>
 
@@ -64,8 +64,8 @@ export function GraphVisual() {
             y={30}
             textAnchor="middle"
             fontSize={11}
-            fill="#93a2b6"
-            fontFamily="Inter, system-ui, sans-serif"
+            fill="#94a3b8"
+            fontFamily="var(--font-mono), ui-monospace, monospace"
           >
             {node.label}
           </text>

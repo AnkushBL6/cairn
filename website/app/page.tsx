@@ -81,7 +81,7 @@ export default function Home() {
 
           <Reveal delay={200}>
             <div className="relative">
-              <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-sky/10 to-violet/10 blur-2xl" />
+              <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-acid/10 to-teal/10 blur-2xl" />
               <div className="card relative animate-float p-4 sm:p-6">
                 <div className="mb-3 flex items-center gap-2 px-1">
                   <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
@@ -102,7 +102,7 @@ export default function Home() {
       <section id="problem" className="border-t border-white/5 py-24">
         <div className="container-page">
           <Reveal>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky/80">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-acid/80">
               The amnesia tax
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -141,7 +141,7 @@ export default function Home() {
         <div className="container-page">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet/80">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal/80">
                 Continuity, by design
               </p>
               <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -173,7 +173,7 @@ export default function Home() {
             ].map((step, i) => (
               <Reveal key={step.k} delay={i * 90}>
                 <div className="card card-hover h-full">
-                  <span className="font-mono text-xs uppercase tracking-widest text-sky/80">
+                  <span className="font-mono text-xs uppercase tracking-widest text-acid/80">
                     {step.k}
                   </span>
                   <h3 className="mt-3 font-display text-lg font-semibold text-white">{step.t}</h3>
@@ -190,7 +190,7 @@ export default function Home() {
         <div className="container-page grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-mint/90">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-mint/90">
                 Tests that actually test
               </p>
               <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
@@ -246,7 +246,7 @@ export default function Home() {
                   {'\n\n'}
                   <span className="text-slate-500">$ npm test | cairn classify --assert-red</span>
                   {'\n\n'}
-                  <span className="text-sky">AssertionError: expected 2 to be 3</span>
+                  <span className="text-amber">AssertionError: expected 2 to be 3</span>
                   {'\n'}
                   {'{'}
                   {'\n'}
@@ -270,7 +270,7 @@ export default function Home() {
         <div className="container-page">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky/80">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-acid/80">
                 One pack, end to end
               </p>
               <h2 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">

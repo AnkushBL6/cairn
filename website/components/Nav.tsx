@@ -10,7 +10,7 @@ export function Nav() {
     <header className="sticky top-0 z-50 border-b border-white/5 bg-ink-950/70 backdrop-blur-xl">
       <nav className="container-page flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 font-display text-lg font-bold text-white">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-sky to-violet text-sm text-ink-950">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-acid to-teal text-sm text-ink-950">
             ▲
           </span>
           Cairn

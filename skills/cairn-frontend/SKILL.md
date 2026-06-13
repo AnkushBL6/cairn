@@ -1,6 +1,6 @@
 ---
 name: cairn-frontend
-description: Use when building or changing user interfaces (web or mobile). Produces world-class, accessible, performant UI driven by the project graph — design tokens, component isolation, and logic tested via cairn-tdd.
+description: Use when building or changing user interfaces (web or mobile). Produces world-class, accessible UI driven by the project graph — design tokens, component isolation, Vercel-grade performance (no waterfalls, server-first, bundle-aware), and logic tested via cairn-tdd.
 license: MIT
 ---
 
@@ -28,6 +28,18 @@ Pull the relevant `component`, `requirement`, `constraint`, and `decision` nodes
 4. **States are designed, not discovered.** Every component handles: default, loading, empty, error, and (where relevant) disabled and overflow/long-content.
 5. **Performance is a feature.** Mind Core Web Vitals: no layout shift, lazy-load below the fold, ship less JS, prefer the platform. Animate `transform`/`opacity`, not layout.
 6. **Responsive by construction.** Fluid layouts; test the smallest and largest target widths the `constraint` nodes imply.
+
+## Performance discipline (from Vercel's React best practices)
+
+For a UI, performance *is* correctness. Apply these highest-impact-first:
+
+1. **Kill waterfalls.** Independent async work runs in parallel (`Promise.all`), never in sequence. Start promises early, await late. Stream with `<Suspense>` so the shell paints immediately.
+2. **Guard the bundle.** `dynamic()`-import heavy or below-the-fold components. Import from exact paths, not barrel files. Defer analytics/third-party until after hydration. Preload on hover/focus.
+3. **Server-first.** Default to Server Components. Dedupe per-request reads with `React.cache()`; hoist static I/O (fonts, config) to module scope; pass the *minimum* data across the server→client boundary.
+4. **Re-render hygiene.** Derive state during render, not in effects. Never define a component inside another. Use primitive effect deps, functional `setState`, and `startTransition`/`useDeferredValue` for non-urgent updates.
+5. **Stack:** prefer Tailwind + shadcn/ui over CSS-in-JS (MUI/Chakra/emotion) for SSR performance.
+
+Before a screen is "done", verify with Lighthouse (Performance ≥ 95, CLS 0) and axe (0 violations).
 
 ## Logic vs. presentation
 
@@ -75,3 +87,5 @@ cairn graph set --type component --title "PaymentForm" --status done
 | "Only the happy path matters." | Loading/empty/error are the product. |
 | "What stack are we using again?" | `cairn resume`. The decision is recorded. |
 | "Animate width/height for the slick effect." | That's jank. Animate transform/opacity. |
+| "These fetches are fine sequentially." | That's a waterfall. Parallelize independent async; stream the rest. |
+| "I'll add props for flexibility later." | YAGNI — build the minimum component the design needs. Senior-engineer test: is this overcomplicated? |

@@ -1,6 +1,6 @@
 ---
 name: cairn-backend
-description: Use when building services, APIs, data layers, or background jobs. Produces clean, well-bounded, typed, observable backends driven by the project graph — with all logic built test-first via cairn-tdd.
+description: Use when building services, APIs, data layers, or background jobs. Produces clean, well-bounded, typed, observable backends driven by the project graph — runtime-aware (serverless/edge constraints, Web Request/Response handlers) with all logic built test-first via cairn-tdd.
 license: MIT
 ---
 
@@ -28,6 +28,18 @@ Pull the relevant `component`, `requirement`, `constraint`, and `decision` nodes
 4. **Security by default.** Parameterized queries, authz checks at the boundary, secrets from the environment (never committed), least privilege, no PII in logs.
 5. **Observability.** Structured logs with correlation, metrics on the paths that matter, and errors that carry enough context to debug from a dashboard.
 6. **Data changes are reversible.** Migrations are forward-only and reviewed; never mutate the shape of persisted data without a migration.
+
+## Serverless & runtime discipline (from Vercel Functions)
+
+When the service ships to a serverless/edge platform (Vercel, Lambda, Workers), the runtime *shapes the design* — get these wrong and it fails only in production:
+
+- **Web-standard handlers.** Named exports (`export async function GET/POST`) using the Web `Request`/`Response` API — not Express, not `NextApiRequest`.
+- **Pick the runtime deliberately.** Node.js for full APIs, DB drivers, heavy deps. Edge for auth/redirect/transform at sub-millisecond cold start — but it has no `fs` and no native modules.
+- **The filesystem is ephemeral and read-only.** Persist to object storage or a database (Blob, Neon, Upstash), never local files.
+- **Process memory isn't shared across invocations.** An in-process `Map`/LRU cache won't survive — use a real cache (Runtime Cache, Redis).
+- **Respect execution limits.** Return fast; push post-response work to `waitUntil`/`after`. For long-running, polling, or retrying flows, use a durable workflow engine — not `setTimeout` loops in a handler.
+- **Pool DB connections** (serverless drivers) so cold starts don't exhaust them.
+- **Cron endpoints are public HTTP** — protect them with a shared secret.
 
 ## Logic is test-first — always
 
@@ -75,3 +87,5 @@ Record any new `decision` (e.g., "chose Stripe") and resolve the `question` it a
 | "I'll inline the DB call in the logic." | Inject it. Otherwise the logic can't be tested. |
 | "Logging is noise." | Structured logs are how you debug production. |
 | "This function obviously works." | If it's not tested, it doesn't ship (G4). |
+| "I'll write to a temp file." | Serverless filesystems are ephemeral/read-only. Use storage or a DB. |
+| "I'll add a config flag, just in case." | No speculative flexibility. Build what's asked; every line traces to a requirement. |

@@ -15,8 +15,8 @@ export const WIZARD_CSS = `
   --border: #223044;
   --text: #e8eef6;
   --muted: #93a2b6;
-  --accent: #7dd3fc;
-  --accent-2: #a78bfa;
+  --accent: #22c55e;
+  --accent-2: #34d399;
   --good: #5eead4;
   --danger: #fb7185;
   --radius: 16px;
@@ -29,8 +29,8 @@ body {
   font-family: var(--font);
   color: var(--text);
   background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(167, 139, 250, 0.18), transparent 60%),
-    radial-gradient(1000px 500px at -10% 10%, rgba(125, 211, 252, 0.16), transparent 55%),
+    radial-gradient(1200px 600px at 80% -10%, rgba(45, 212, 191, 0.18), transparent 60%),
+    radial-gradient(1000px 500px at -10% 10%, rgba(34, 197, 94, 0.16), transparent 55%),
     linear-gradient(180deg, var(--bg), var(--bg-2));
   min-height: 100%;
   display: flex;
@@ -79,7 +79,7 @@ body {
 .field textarea { min-height: 130px; resize: vertical; line-height: 1.5; }
 .field input:focus, .field textarea:focus {
   outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.15);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
 }
 .choices { display: grid; gap: 10px; }
 .choice {
@@ -95,7 +95,7 @@ body {
   border: 2px solid #3a4d66; display: grid; place-items: center; transition: all 160ms;
 }
 .choice[data-kind="single"] .box { border-radius: 50%; }
-.choice.sel { border-color: var(--accent); background: rgba(125, 211, 252, 0.08); }
+.choice.sel { border-color: var(--accent); background: rgba(34, 197, 94, 0.08); }
 .choice.sel .box { border-color: var(--accent); background: var(--accent); }
 .choice.sel .box::after { content: ""; width: 8px; height: 8px; border-radius: 3px; background: #06121f; }
 .choice .c-col { display: flex; flex-direction: column; gap: 3px; }
@@ -113,7 +113,7 @@ body {
   flex: 1; cursor: pointer; padding: 14px; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 600;
   background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); color: var(--text); transition: all 160ms;
 }
-.toggle button.sel { border-color: var(--accent); background: rgba(125, 211, 252, 0.1); }
+.toggle button.sel { border-color: var(--accent); background: rgba(34, 197, 94, 0.1); }
 .err { color: var(--danger); font-size: 13.5px; margin-top: 12px; min-height: 18px; }
 .foot {
   display: flex; align-items: center; justify-content: space-between;

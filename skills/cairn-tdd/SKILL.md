@@ -144,6 +144,17 @@ cairn graph apply ops.json   # a test node + a `tests` edge to the component/req
 | "I'll add options I might need." | YAGNI. Minimal code to pass the current test. |
 | "This helper doesn't need a test." | G4: untested logic doesn't ship. |
 
+## Coding discipline (the Karpathy principles)
+
+Guaranteed TDD is one half of avoiding the classic LLM coding failure. These four
+habits — after [Karpathy's observations](https://x.com/karpathy/status/2015883857489522876)
+on where models go wrong — are the other half:
+
+1. **Think before coding.** Surface your assumptions instead of running with them. If two readings of the request exist, present both. Push back when a simpler path exists. (This is exactly why Cairn brainstorms to a graph *before* building.)
+2. **Simplicity first.** The minimum code that passes the test — no speculative abstractions, no options nobody asked for, no error handling for impossible cases. 200 lines that could be 50? Rewrite it. *Would a senior engineer call this overcomplicated?* If yes, simplify.
+3. **Surgical changes.** Touch only what the task requires. Don't "improve" adjacent code, comments, or formatting; don't refactor what isn't broken; match the existing style. Remove the orphans *your* change created — merely *flag* pre-existing dead code. Every changed line should trace to the request.
+4. **Goal-driven execution.** Turn "add X" into "write the failing test for X, then make it pass" — which is precisely the red→green loop above. Strong, verifiable success criteria let the work check itself instead of guessing.
+
 ## When NOT to use (ask the human)
 
 Throwaway spikes, generated code, pure config. Everything else: test first.

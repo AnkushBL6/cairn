@@ -28,7 +28,7 @@ export function CommandLine({
     <div
       className={`flex items-center gap-3 rounded-xl border border-white/10 bg-ink-900/80 px-4 py-3 font-mono text-sm ${className}`}
     >
-      <span className="select-none text-sky/70">{prompt}</span>
+      <span className="select-none text-acid/70">{prompt}</span>
       <code className="flex-1 overflow-x-auto whitespace-nowrap text-slate-100">{command}</code>
       <button
         type="button"
