@@ -120,6 +120,24 @@ describe('CairnGraph — query & traversal', () => {
   });
 });
 
+describe('CairnGraph — updateNode', () => {
+  it('updates status and body of an existing node in place (no duplicate)', () => {
+    const g = newGraph();
+    const c = g.addNode({ type: 'component', title: 'PaymentForm' });
+    const updated = g.updateNode(c.id, { status: 'done', body: 'shipped' });
+    expect(updated.status).toBe('done');
+    expect(updated.body).toBe('shipped');
+    expect(g.getNode(c.id)?.status).toBe('done');
+    // still exactly one component — not a duplicate
+    expect(g.query({ type: 'component', includeSuperseded: true })).toHaveLength(1);
+  });
+
+  it('throws for an unknown node id', () => {
+    const g = newGraph();
+    expect(() => g.updateNode('nope', { status: 'done' })).toThrow(/not found/i);
+  });
+});
+
 describe('CairnGraph — supersede (never delete)', () => {
   it('retires the old node, links it, and excludes it from default queries', () => {
     const g = newGraph();

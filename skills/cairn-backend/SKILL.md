@@ -58,8 +58,10 @@ digraph cairn_backend {
 
 ## When you finish
 
+Update status in place with `graph set` (not `graph add`, which would duplicate):
+
 ```bash
-cairn graph add --type component --title "PaymentsService" --status done
+cairn graph set --type component --title "PaymentsService" --status done
 ```
 
 Record any new `decision` (e.g., "chose Stripe") and resolve the `question` it answered, so the graph stays the source of truth.

@@ -11,6 +11,7 @@ import {
   type NeighborOptions,
   type NewEdge,
   type NewNode,
+  type NodeStatus,
   type QueryFilter,
 } from './types.js';
 
@@ -76,6 +77,17 @@ export class CairnGraph {
   getNode(id: string): CairnNode | undefined {
     const node = this.nodes.get(id);
     return node ? this.copyNode(node) : undefined;
+  }
+
+  /** Update mutable fields of an existing node (status/body). Identity is immutable. */
+  updateNode(id: string, patch: { status?: NodeStatus; body?: string }): CairnNode {
+    const node = this.nodes.get(id);
+    if (!node) {
+      throw new Error(`Cairn updateNode: node not found: "${id}"`);
+    }
+    if (patch.status !== undefined) node.status = patch.status;
+    if (patch.body !== undefined) node.body = patch.body;
+    return this.copyNode(node);
   }
 
   /** Retire `oldId` in favour of `newId`. Nodes are never deleted — only superseded. */

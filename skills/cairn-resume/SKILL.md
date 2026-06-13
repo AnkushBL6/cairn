@@ -74,13 +74,17 @@ Do **not** ask them to re-summarize the project. You just read it.
 
 ## After building
 
-When you finish a component, update its status so the next session knows:
+When you finish a component, update its status so the next session knows. Use
+`graph set` (which updates in place) — never `graph add`, which would create a
+duplicate:
 
 ```bash
-cairn graph add --type component --title "PaymentForm" --status done
+cairn graph set --type component --title "PaymentForm" --status done
+# or by id:  cairn graph set component--paymentform --status done
 ```
 
-(Or apply an ops file. Keeping status current is what makes resume trustworthy.)
+(`cairn graph show` lists every node's id and status. Keeping status current is
+what makes resume trustworthy.)
 
 ## Red Flags
 

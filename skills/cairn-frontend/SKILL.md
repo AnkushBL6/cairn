@@ -59,10 +59,11 @@ digraph cairn_frontend {
 
 ## When you finish
 
-Mark the component done so the next session and the rest of the team see it:
+Mark the component done so the next session and the rest of the team see it
+(`graph set` updates in place — `graph add` would create a duplicate):
 
 ```bash
-cairn graph add --type component --title "PaymentForm" --status done
+cairn graph set --type component --title "PaymentForm" --status done
 ```
 
 ## Red Flags

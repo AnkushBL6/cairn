@@ -8,8 +8,9 @@ import {
   type NodeType,
   classifyTestFailure,
   renderMermaid,
+  slugify,
 } from '@cairn/core';
-import { type Interview, type Transcript, renderWizard } from '@cairn/studio';
+import { type Interview, type Transcript, renderWizard, validateInterview } from '@cairn/studio';
 import { type ParsedArgs, numFlag as num, parseArgs as parse, strFlag as str } from './args.js';
 import {
   type GraphOps,
@@ -35,8 +36,9 @@ Commands:
   ingest <transcript.json>     Save a finished interview transcript
   graph apply <ops.json>       Apply a batch of nodes/edges (the agent's synthesis)
   graph add --type T --title "..."   Add a single node
+  graph set <id> --status done       Update an existing node's status/body
   graph edge --type T --from id --to id   Connect two nodes
-  graph show                   Print the project graph (Mermaid + counts)
+  graph show                   Print the project graph (ids, statuses, Mermaid)
   resume                       Print the context a fresh session should read
   classify [file] [--assert-red]   Classify test output: real red vs missing-symbol
   help | version
@@ -113,6 +115,7 @@ async function runStudio(store: CairnStore, flags: ParsedArgs['flags'], ctx: Ctx
   const interviewPath = str(flags, 'interview');
   if (!interviewPath) failWith('studio requires --interview <file.json>');
   const interview = JSON.parse(await readFile(interviewPath, 'utf8')) as Interview;
+  validateInterview(interview); // fail fast on a malformed interview, in both modes
 
   if (flags.static) {
     const out = str(flags, 'out') ?? `${store.runtimeDir}/wizard.html`;
@@ -176,10 +179,36 @@ async function runGraph(
     ctx.out(JSON.stringify(result));
     return;
   }
+  if (sub === 'set') {
+    const id =
+      args[2] ??
+      `${asNodeType(str(flags, 'type'))}--${slugify(
+        str(flags, 'title') ?? failWith('graph set requires <id> or --type and --title'),
+      )}`;
+    const status = asNodeStatus(str(flags, 'status'));
+    const body = str(flags, 'body');
+    if (status === undefined && body === undefined) {
+      failWith('graph set requires --status and/or --body');
+    }
+    const graph = await store.loadGraph();
+    graph.updateNode(id, {
+      ...(status !== undefined ? { status } : {}),
+      ...(body !== undefined ? { body } : {}),
+    });
+    await store.saveGraph(graph);
+    ctx.out(`Updated ${id}`);
+    return;
+  }
   if (sub === 'show') {
     const graph = await store.loadGraph();
     const doc = graph.toJSON();
     ctx.out(renderMermaid(graph));
+    if (doc.nodes.length > 0) {
+      ctx.out('');
+      for (const node of doc.nodes) {
+        ctx.out(`  ${node.id}  [${node.status}]  ${node.title}`);
+      }
+    }
     ctx.out(`\n${doc.nodes.length} nodes, ${doc.edges.length} edges`);
     return;
   }

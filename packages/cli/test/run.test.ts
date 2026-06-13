@@ -66,11 +66,37 @@ describe('runCli — the full command dispatch', () => {
     expect(text).toContain('Open question');
   });
 
-  it('graph add then graph show renders Mermaid', async () => {
+  it('graph add then graph show renders Mermaid and lists node ids', async () => {
     expect(await runCli(['graph', 'add', '--type', 'goal', '--title', 'From CLI'], io())).toBe(0);
     out = [];
     expect(await runCli(['graph', 'show'], io())).toBe(0);
-    expect(out.join('\n')).toContain('flowchart TD');
+    const text = out.join('\n');
+    expect(text).toContain('flowchart TD');
+    expect(text).toContain('goal--from-cli  [open]  From CLI');
+  });
+
+  it('graph set updates a node in place — no duplicate (the resume-continuity fix)', async () => {
+    await runCli(['graph', 'add', '--type', 'component', '--title', 'PaymentForm'], io());
+    out = [];
+    const code = await runCli(
+      ['graph', 'set', '--type', 'component', '--title', 'PaymentForm', '--status', 'done'],
+      io(),
+    );
+    expect(code).toBe(0);
+    expect(out.join('\n')).toContain('Updated component--paymentform');
+
+    out = [];
+    await runCli(['graph', 'show'], io());
+    const lines = out.join('\n').split('\n');
+    const componentLines = lines.filter((l) => l.includes('component--paymentform  ['));
+    expect(componentLines).toHaveLength(1); // exactly one — not duplicated
+    expect(componentLines[0]).toContain('[done]');
+  });
+
+  it('graph set by explicit id works; unknown id fails cleanly', async () => {
+    await runCli(['graph', 'add', '--type', 'goal', '--title', 'G'], io());
+    expect(await runCli(['graph', 'set', 'goal--g', '--status', 'accepted'], io())).toBe(0);
+    expect(await runCli(['graph', 'set', 'goal--missing', '--status', 'done'], io())).toBe(1);
   });
 
   it('graph edge connects two existing nodes', async () => {
