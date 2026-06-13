@@ -5,44 +5,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        // OLED slate ("code dark")
-        ink: {
-          950: '#06090f',
-          900: '#090e16',
-          850: '#0d1320',
-          800: '#111a27',
-          700: '#172234',
-          600: '#202f47',
-          500: '#2b3a55',
+        // warm cream paper
+        paper: {
+          DEFAULT: '#f4f1e9',
+          50: '#faf8f2',
+          100: '#f0ece1',
+          200: '#e7e1d2',
         },
-        // the "run green" — a passing test, the heart of Cairn's identity
-        acid: { DEFAULT: '#22c55e', soft: '#4ade80' },
-        mint: '#34d399',
-        teal: '#2dd4bf',
-        amber: '#f5b971',
-        rose: '#fb7185',
+        card: '#fffdf8',
+        // warm near-black ink
+        ink: { DEFAULT: '#1c1b17', soft: '#39352c' },
+        // the deep "run green" — Cairn's accent, darkened for AA text contrast on cream
+        acid: { DEFAULT: '#166534', bright: '#16a34a' },
+        teal: '#0f766e',
+        clay: '#b4530a',
+        amber: '#b45309',
+        rose: '#be123c',
+        mint: '#15803d',
+        // warm-dark surface for code/terminal cards
+        coal: { DEFAULT: '#16170f', 900: '#121309', 800: '#1d1e14' },
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['var(--font-display)', 'var(--font-geist-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'ui-serif', 'serif'],
         mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       maxWidth: {
         content: '1120px',
-      },
-      keyframes: {
-        'fade-up': {
-          from: { opacity: '0', transform: 'translateY(16px)' },
-          to: { opacity: '1', transform: 'none' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-      },
-      animation: {
-        'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
-        float: 'float 6s ease-in-out infinite',
       },
     },
   },

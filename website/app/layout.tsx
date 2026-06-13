@@ -1,11 +1,16 @@
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata, Viewport } from 'next';
-import { Space_Grotesk } from 'next/font/google';
+import { Fraunces } from 'next/font/google';
 import './globals.css';
 
-// Premium pairing: Geist (Vercel's typeface) for UI + a geometric grotesk for display.
-const display = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
+// Warm editorial pairing: a characterful serif for display + Geist for UI/code.
+const display = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+  style: ['normal', 'italic'],
+});
 
 const description =
   'Cairn is the skillpack that gives your AI agent continuity: brainstorm into a persistent knowledge graph, build test-first with real guarantees, and pull in any skill on demand.';
@@ -43,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#070a0e',
+  themeColor: '#f4f1e9',
   width: 'device-width',
   initialScale: 1,
 };
@@ -54,10 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable}`}
     >
-      <body>
-        <div className="grain" aria-hidden="true" />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

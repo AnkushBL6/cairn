@@ -41,7 +41,7 @@ export default function Home() {
       {/* ───────────── Hero ───────────── */}
       <section className="relative overflow-hidden">
         <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="container-page relative grid items-center gap-14 py-20 lg:grid-cols-[1.08fr_0.92fr] lg:py-28">
+        <div className="container-page relative grid items-center gap-14 py-20 lg:grid-cols-[1.06fr_0.94fr] lg:py-28">
           <div>
             <Reveal>
               <span className="eyebrow">
@@ -50,14 +50,13 @@ export default function Home() {
               </span>
             </Reveal>
             <Reveal delay={70}>
-              <h1 className="mt-6 font-display text-5xl font-bold leading-[0.95] tracking-tight text-white text-balance sm:text-6xl lg:text-[5.2rem]">
-                Your AI never
-                <br />
-                starts from <span className="gradient-text">zero.</span>
+              <h1 className="mt-6 font-display text-[3.4rem] font-semibold leading-[0.98] tracking-[-0.01em] text-ink text-balance sm:text-7xl">
+                Your AI never starts from{' '}
+                <span className="gradient-text italic">zero.</span>
               </h1>
             </Reveal>
             <Reveal delay={150}>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-slate-400">
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-stone-600">
                 Cairn turns a brainstorm into a knowledge graph your project carries forever — so
                 every new session resumes with full context, builds test-first with real
                 guarantees, and pulls in any skill on demand.
@@ -84,17 +83,15 @@ export default function Home() {
           </div>
 
           <Reveal delay={200}>
-            <div className="bezel float-slow relative">
-              <div className="bezel-core p-4 sm:p-6">
-                <div className="mb-3 flex items-center gap-2 px-1">
-                  <span className="h-2.5 w-2.5 rounded-full bg-rose/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-acid/70" />
-                  <span className="ml-2 font-mono text-xs text-slate-500">.cairn / graph</span>
-                </div>
-                <div className="aspect-[470/410] w-full">
-                  <GraphVisual />
-                </div>
+            <div className="card float-slow p-4 sm:p-6">
+              <div className="mb-3 flex items-center gap-2 px-1">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+                <span className="ml-2 font-mono text-xs text-stone-500">.cairn / graph</span>
+              </div>
+              <div className="aspect-[470/410] w-full">
+                <GraphVisual />
               </div>
             </div>
           </Reveal>
@@ -102,15 +99,15 @@ export default function Home() {
       </section>
 
       {/* ───────── The amnesia tax — editorial split ───────── */}
-      <section id="problem" className="border-t border-white/5 py-28">
+      <section id="problem" className="border-t border-ink/10 py-28">
         <div className="container-page grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-28">
               <p className="eyebrow">// the amnesia tax</p>
-              <h2 className="mt-6 font-display text-4xl font-bold leading-[1.04] tracking-tight text-white text-balance sm:text-5xl">
+              <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.01em] text-ink text-balance sm:text-5xl">
                 Every new chat forgets everything. You pay for it in re-explaining.
               </h2>
-              <p className="mt-6 max-w-md leading-relaxed text-slate-400">
+              <p className="mt-6 max-w-md leading-relaxed text-stone-600">
                 Three places the cost shows up — and exactly where Cairn erases it.
               </p>
             </div>
@@ -119,10 +116,10 @@ export default function Home() {
             {PROBLEMS.map((item, i) => (
               <Reveal key={item.t} delay={i * 90}>
                 <div className="card card-hover flex gap-5">
-                  <span className="mt-0.5 font-mono text-sm text-acid/70">0{i + 1}</span>
+                  <span className="mt-0.5 font-mono text-sm text-acid">0{i + 1}</span>
                   <div>
-                    <h3 className="font-display text-lg font-semibold text-white">{item.t}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.b}</p>
+                    <h3 className="font-display text-lg font-semibold text-ink">{item.t}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-stone-600">{item.b}</p>
                   </div>
                 </div>
               </Reveal>
@@ -137,8 +134,9 @@ export default function Home() {
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">// continuity, by design</p>
-              <h2 className="mt-6 font-display text-4xl font-bold leading-tight tracking-tight text-white text-balance sm:text-5xl">
-                Idea → graph → resume. The thread that never breaks.
+              <h2 className="mt-6 font-display text-4xl font-semibold leading-tight tracking-[-0.01em] text-ink text-balance sm:text-5xl">
+                Idea → graph → resume.{' '}
+                <span className="italic text-acid">The thread that never breaks.</span>
               </h2>
             </div>
           </Reveal>
@@ -150,11 +148,11 @@ export default function Home() {
                 className={i === 1 ? 'md:mt-10' : i === 2 ? 'md:mt-20' : ''}
               >
                 <div className="card card-hover h-full">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-acid/80">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-acid">
                     {step.k}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-white">{step.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.b}</p>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-ink">{step.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{step.b}</p>
                 </div>
               </Reveal>
             ))}
@@ -163,15 +161,16 @@ export default function Home() {
       </section>
 
       {/* ───────── TDD fix ───────── */}
-      <section id="tdd" className="border-y border-white/5 py-28">
+      <section id="tdd" className="border-y border-ink/10 bg-paper-100 py-28">
         <div className="container-page grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
             <div>
               <p className="eyebrow">// tests that actually test</p>
-              <h2 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-white text-balance sm:text-5xl">
-                A red that’s provably real — before a line of code.
+              <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.05] tracking-[-0.01em] text-ink text-balance sm:text-5xl">
+                A red that’s <span className="italic text-acid">provably real</span> — before a line
+                of code.
               </h2>
-              <p className="mt-6 leading-relaxed text-slate-400">
+              <p className="mt-6 leading-relaxed text-stone-600">
                 Most “TDD” starts from a missing-symbol error and calls it red. Cairn’s classifier
                 tells the difference between “the symbol doesn’t exist yet” and “the behavior is
                 wrong” — and refuses to let you build on a fake red.
@@ -184,10 +183,10 @@ export default function Home() {
                   ['G4', 'No orphan code — untested logic doesn’t ship.'],
                 ].map(([tag, text]) => (
                   <li key={tag} className="flex gap-3">
-                    <span className="mt-0.5 inline-flex h-6 w-7 shrink-0 items-center justify-center rounded-md bg-mint/15 font-mono text-xs font-bold text-mint">
+                    <span className="mt-0.5 inline-flex h-6 w-7 shrink-0 items-center justify-center rounded-md bg-acid/10 font-mono text-xs font-bold text-acid">
                       {tag}
                     </span>
-                    <span className="text-sm leading-relaxed text-slate-300">{text}</span>
+                    <span className="text-sm leading-relaxed text-stone-700">{text}</span>
                   </li>
                 ))}
               </ul>
@@ -195,42 +194,40 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="bezel">
-              <div className="bezel-core overflow-hidden">
-                <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
-                  <span className="h-2.5 w-2.5 rounded-full bg-rose/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber/70" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-acid/70" />
-                  <span className="ml-2 font-mono text-xs text-slate-500">cairn classify</span>
-                </div>
-                <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed">
-                  <code>
-                    <span className="text-slate-500">$ npm test | cairn classify --assert-red</span>
-                    {'\n\n'}
-                    <span className="text-rose">TypeError: retryOperation is not a function</span>
-                    {'\n'}
-                    {'{ "kind": '}
-                    <span className="text-amber">"missing-symbol"</span>
-                    {', "isRealRed": '}
-                    <span className="text-rose">false</span>
-                    {' }'}
-                    {'\n'}
-                    <span className="text-slate-500"># exit 2 — scaffold the signature first</span>
-                    {'\n\n'}
-                    <span className="text-slate-500">$ npm test | cairn classify --assert-red</span>
-                    {'\n\n'}
-                    <span className="text-amber">AssertionError: expected 2 to be 3</span>
-                    {'\n'}
-                    {'{ "kind": '}
-                    <span className="text-acid">"assertion"</span>
-                    {', "isRealRed": '}
-                    <span className="text-acid">true</span>
-                    {' }'}
-                    {'\n'}
-                    <span className="text-acid/80"># real red ✓ — now build it</span>
-                  </code>
-                </pre>
+            <div className="terminal overflow-hidden">
+              <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+                <span className="ml-2 font-mono text-xs text-[#8a8b78]">cairn classify</span>
               </div>
+              <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-[#e7e8d8]">
+                <code>
+                  <span className="text-[#8a8b78]">$ npm test | cairn classify --assert-red</span>
+                  {'\n\n'}
+                  <span className="text-[#f87171]">TypeError: retryOperation is not a function</span>
+                  {'\n'}
+                  {'{ "kind": '}
+                  <span className="text-[#fbbf24]">"missing-symbol"</span>
+                  {', "isRealRed": '}
+                  <span className="text-[#f87171]">false</span>
+                  {' }'}
+                  {'\n'}
+                  <span className="text-[#8a8b78]"># exit 2 — scaffold the signature first</span>
+                  {'\n\n'}
+                  <span className="text-[#8a8b78]">$ npm test | cairn classify --assert-red</span>
+                  {'\n\n'}
+                  <span className="text-[#fbbf24]">AssertionError: expected 2 to be 3</span>
+                  {'\n'}
+                  {'{ "kind": '}
+                  <span className="text-[#34d399]">"assertion"</span>
+                  {', "isRealRed": '}
+                  <span className="text-[#34d399]">true</span>
+                  {' }'}
+                  {'\n'}
+                  <span className="text-[#34d399]/80"># real red ✓ — now build it</span>
+                </code>
+              </pre>
             </div>
           </Reveal>
         </div>
@@ -242,10 +239,10 @@ export default function Home() {
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">// one pack, end to end</p>
-              <h2 className="mt-6 font-display text-4xl font-bold leading-tight tracking-tight text-white text-balance sm:text-5xl">
+              <h2 className="mt-6 font-display text-4xl font-semibold leading-tight tracking-[-0.01em] text-ink text-balance sm:text-5xl">
                 Six skills that share one brain.
               </h2>
-              <p className="mt-5 leading-relaxed text-slate-400">
+              <p className="mt-5 leading-relaxed text-stone-600">
                 Each skill reads the graph instead of re-interrogating you. Open-ended by design —
                 the router installs anything else.
               </p>
@@ -266,12 +263,12 @@ export default function Home() {
                     >
                       {skill.glyph}
                     </div>
-                    <code className="mt-1 font-mono text-[11px] text-slate-500">{skill.name}</code>
+                    <code className="mt-1 font-mono text-[11px] text-stone-500">{skill.name}</code>
                   </div>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-white">
+                  <h3 className="mt-5 font-display text-lg font-semibold text-ink">
                     {skill.title}
                   </h3>
-                  <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-400">
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-600">
                     {skill.tagline}
                   </p>
                 </div>
@@ -282,10 +279,10 @@ export default function Home() {
       </section>
 
       {/* ───────── How it works ───────── */}
-      <section id="how" className="border-t border-white/5 py-28">
+      <section id="how" className="border-t border-ink/10 py-28">
         <div className="container-page">
           <Reveal>
-            <h2 className="font-display text-4xl font-bold leading-tight tracking-tight text-white text-balance sm:text-5xl">
+            <h2 className="font-display text-4xl font-semibold leading-tight tracking-[-0.01em] text-ink text-balance sm:text-5xl">
               From idea to shipped — four moves.
             </h2>
           </Reveal>
@@ -293,10 +290,12 @@ export default function Home() {
             {HOW_STEPS.map((step, i) => (
               <Reveal key={step.n} delay={i * 70}>
                 <div className="card card-hover grid items-center gap-6 md:grid-cols-[auto_1fr_1.1fr]">
-                  <span className="font-display text-4xl font-bold text-white/10">{step.n}</span>
+                  <span className="inline-grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-acid/10 font-mono text-sm font-semibold text-acid">
+                    {step.n}
+                  </span>
                   <div>
-                    <h3 className="font-display text-lg font-semibold text-white">{step.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-400">{step.body}</p>
+                    <h3 className="font-display text-lg font-semibold text-ink">{step.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-stone-600">{step.body}</p>
                   </div>
                   <CommandLine command={step.cmd} />
                 </div>
@@ -306,39 +305,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───────── Install CTA ───────── */}
+      {/* ───────── Install CTA — dark finale ───────── */}
       <section id="install" className="py-28">
         <div className="container-page">
           <Reveal>
-            <div className="bezel">
-              <div className="bezel-core relative overflow-hidden px-8 py-16 text-center">
-                <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
-                <div className="relative">
-                  <h2 className="mx-auto max-w-2xl font-display text-4xl font-bold leading-tight tracking-tight text-white text-balance sm:text-5xl">
-                    Give your agent a memory it can build on.
-                  </h2>
-                  <p className="mx-auto mt-5 max-w-xl leading-relaxed text-slate-400">
-                    Install the pack across Claude Code, Cursor, Copilot and 18+ agents via the open
-                    skills standard.
-                  </p>
-                  <div className="mx-auto mt-8 max-w-md">
-                    <CommandLine command="npx skills add AnkushBL6/cairn" />
-                  </div>
-                  <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-                    <a
-                      href="https://github.com/AnkushBL6/cairn"
-                      className="group btn btn-primary text-[15px]"
-                    >
-                      Star on GitHub
-                      <span className="icon-circle transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px">
-                        ↗
-                      </span>
-                    </a>
-                    <a href="#top" className="btn btn-ghost text-[15px]">
-                      Back to top
-                    </a>
-                  </div>
-                </div>
+            <div className="terminal relative overflow-hidden px-8 py-16 text-center">
+              <h2 className="mx-auto max-w-2xl font-display text-4xl font-semibold leading-tight tracking-[-0.01em] text-paper-50 text-balance sm:text-5xl">
+                Give your agent a memory it can{' '}
+                <span className="italic text-[#34d399]">build on.</span>
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl leading-relaxed text-[#b9baa6]">
+                Install the pack across Claude Code, Cursor, Copilot and 18+ agents via the open
+                skills standard.
+              </p>
+              <div className="mx-auto mt-8 max-w-md">
+                <CommandLine command="npx skills add AnkushBL6/cairn" className="!border-white/10" />
+              </div>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="https://github.com/AnkushBL6/cairn"
+                  className="group btn btn-primary text-[15px]"
+                >
+                  Star on GitHub
+                  <span className="icon-circle transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                    ↗
+                  </span>
+                </a>
+                <a
+                  href="#top"
+                  className="btn rounded-full border border-white/20 bg-white/5 px-6 py-3 text-[15px] text-paper-50 transition hover:bg-white/10"
+                >
+                  Back to top
+                </a>
               </div>
             </div>
           </Reveal>
