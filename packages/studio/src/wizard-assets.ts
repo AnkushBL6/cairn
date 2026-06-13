@@ -98,8 +98,9 @@ body {
 .choice.sel { border-color: var(--accent); background: rgba(125, 211, 252, 0.08); }
 .choice.sel .box { border-color: var(--accent); background: var(--accent); }
 .choice.sel .box::after { content: ""; width: 8px; height: 8px; border-radius: 3px; background: #06121f; }
-.choice .c-label { font-weight: 600; font-size: 16px; }
-.choice .c-desc { color: var(--muted); font-size: 13.5px; margin-top: 3px; line-height: 1.45; }
+.choice .c-col { display: flex; flex-direction: column; gap: 3px; }
+.choice .c-label { display: block; font-weight: 600; font-size: 16px; }
+.choice .c-desc { display: block; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
 .scale { display: flex; align-items: center; gap: 18px; }
 .scale input[type="range"] { flex: 1; accent-color: var(--accent); height: 6px; }
 .scale .val {
@@ -240,7 +241,7 @@ export const WIZARD_JS = String.raw`
         btn.type = 'button';
         btn.setAttribute('data-kind', q.kind);
         btn.appendChild(el('span', 'box'));
-        var col = el('span');
+        var col = el('span', 'c-col');
         col.appendChild(el('span', 'c-label', choice.label));
         if (choice.description) col.appendChild(el('span', 'c-desc', choice.description));
         btn.appendChild(col);
