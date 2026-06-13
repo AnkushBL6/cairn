@@ -2,13 +2,13 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
-  classifyTestFailure,
   EDGE_TYPES,
   type EdgeType,
   NODE_STATUSES,
   NODE_TYPES,
   type NodeStatus,
   type NodeType,
+  classifyTestFailure,
   renderMermaid,
 } from '@cairn/core';
 import { type Interview, type Transcript, renderWizard } from '@cairn/studio';
