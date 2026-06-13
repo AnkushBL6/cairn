@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-950 text-slate-200 font-sans antialiased;
+    background-image:
+      radial-gradient(900px 520px at 82% -8%, rgba(167, 139, 250, 0.16), transparent 60%),
+      radial-gradient(820px 480px at -8% 6%, rgba(125, 211, 252, 0.14), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(125, 211, 252, 0.28);
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-6;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(120deg, #bae6fd 0%, #7dd3fc 35%, #a78bfa 80%);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5
+      px-3.5 py-1.5 text-xs font-medium tracking-wide text-slate-300;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold
+      transition-all duration-200 active:translate-y-px;
+  }
+
+  .btn-primary {
+    @apply text-ink-950;
+    background-image: linear-gradient(135deg, #7dd3fc, #a78bfa);
+    box-shadow: 0 12px 40px -12px rgba(125, 211, 252, 0.55);
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    @apply border border-white/10 bg-white/5 text-slate-200;
+  }
+
+  .btn-ghost:hover {
+    @apply bg-white/10 border-white/20;
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-gradient-to-b from-ink-800/80 to-ink-700/50
+      p-6 transition-all duration-300;
+    box-shadow: 0 24px 60px -36px rgba(0, 0, 0, 0.9);
+  }
+
+  .card-hover:hover {
+    @apply border-white/20 -translate-y-1;
+    box-shadow: 0 32px 70px -34px rgba(125, 211, 252, 0.25);
+  }
+
+  .hairline {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    height: 1px;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(620px 420px at 50% 0%, black, transparent 75%);
+  }
+}
+
+/* Animated knowledge-graph visual */
+.cairn-graph .edge {
+  stroke: url(#edgeGrad);
+  stroke-width: 1.4;
+  opacity: 0.5;
+}
+
+.cairn-graph .pulse {
+  stroke: #7dd3fc;
+  stroke-width: 2;
+  stroke-dasharray: 5 120;
+  opacity: 0.9;
+  animation: dash 3.4s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -125;
+  }
+}
+
+.cairn-graph .node {
+  filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.45));
+}
+
+.cairn-graph .node-core {
+  animation: nodepulse 4s ease-in-out infinite;
+}
+
+@keyframes nodepulse {
+  0%,
+  100% {
+    r: 7;
+    opacity: 1;
+  }
+  50% {
+    r: 8.5;
+    opacity: 0.86;
+  }
+}
