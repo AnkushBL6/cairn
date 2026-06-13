@@ -25,6 +25,7 @@ import {
 export class CairnGraph {
   private readonly nodes = new Map<string, CairnNode>();
   private readonly edges: CairnEdge[] = [];
+  private readonly edgeIds = new Set<string>();
   private readonly now: () => string;
   private readonly session: string;
 
@@ -34,7 +35,7 @@ export class CairnGraph {
   }
 
   addNode(input: NewNode): CairnNode {
-    const id = makeNodeId(input.type, input.title, new Set(this.nodes.keys()));
+    const id = makeNodeId(input.type, input.title, this.nodes);
     const node: CairnNode = {
       id,
       type: input.type,
@@ -68,8 +69,9 @@ export class CairnGraph {
       to: input.to,
       ...(input.note !== undefined ? { note: input.note } : {}),
     };
-    if (!this.edges.some((existing) => existing.id === edge.id)) {
+    if (!this.edgeIds.has(edge.id)) {
       this.edges.push(edge);
+      this.edgeIds.add(edge.id);
     }
     return { ...edge };
   }
@@ -160,6 +162,7 @@ export class CairnGraph {
     }
     for (const edge of doc.edges) {
       graph.edges.push({ ...edge });
+      graph.edgeIds.add(edge.id);
     }
     return graph;
   }

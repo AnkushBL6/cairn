@@ -12,10 +12,20 @@ export function summarizeForResume(graph: CairnGraph): ResumeBrief {
   const openQuestions = graph.openQuestions();
   const risks = graph.query({ type: 'risk' });
 
+  // Build a depends_on adjacency index once (O(E)) rather than scanning every
+  // edge for every component (O(N·E)).
+  const dependsOn = new Map<string, string[]>();
+  for (const edge of graph.allEdges()) {
+    if (edge.type !== 'depends_on') continue;
+    const list = dependsOn.get(edge.from);
+    if (list) list.push(edge.to);
+    else dependsOn.set(edge.from, [edge.to]);
+  }
+
   const components: ComponentBrief[] = graph.query({ type: 'component' }).map((node) => ({
     node,
     status: node.status,
-    dependsOn: graph.neighbors(node.id, { edge: 'depends_on', direction: 'out' }).map((n) => n.id),
+    dependsOn: dependsOn.get(node.id) ?? [],
   }));
 
   const nextActions: string[] = [];

@@ -16,8 +16,15 @@ export function slugify(input: string): string {
  * Deterministic node id: `${type}--${slug}`, disambiguated by an ordinal suffix
  * when an id already exists. No randomness — the same insertion order always
  * yields the same ids, which keeps the committed graph stable across machines.
+ *
+ * `existing` is any structure with an O(1) membership check (a Set or a Map),
+ * so callers never have to materialise a fresh set on every insertion.
  */
-export function makeNodeId(type: NodeType, title: string, existing: ReadonlySet<string>): string {
+export function makeNodeId(
+  type: NodeType,
+  title: string,
+  existing: { has(id: string): boolean },
+): string {
   const base = `${type}--${slugify(title)}`;
   if (!existing.has(base)) {
     return base;
