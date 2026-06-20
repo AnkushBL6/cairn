@@ -19,10 +19,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Build first: @cairn/cli's typecheck resolves @cairn/core and
+      # @cairn/studio from their compiled dist/*.d.ts, which a clean checkout
+      # doesn't have yet.
+      - run: pnpm build
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
 
   website:
     name: Marketing site
