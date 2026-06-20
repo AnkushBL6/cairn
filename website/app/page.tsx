@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CommandLine } from '@/components/CommandLine';
 import { Footer } from '@/components/Footer';
 import { GraphVisual } from '@/components/GraphVisual';
@@ -275,6 +276,20 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={120}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/docs" className="btn btn-ghost text-[15px]">
+                Read the docs
+              </Link>
+              <Link href="/playground" className="group btn btn-primary text-[15px]">
+                Try the graph playground
+                <span className="icon-circle transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                  →
+                </span>
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 

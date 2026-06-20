@@ -11,18 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # pnpm version comes from package.json "packageManager" — specifying it
+      # here too makes action-setup@v4 fail with ERR_PNPM_BAD_PM_VERSION.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Build first: @cairn/cli's typecheck resolves @cairn/core and
+      # @cairn/studio from their compiled dist/*.d.ts, which a clean checkout
+      # doesn't have yet.
+      - run: pnpm build
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
 
   website:
     name: Marketing site
@@ -36,3 +39,33 @@ jobs:
           cache-dependency-path: website/package-lock.json
       - run: npm --prefix website ci
       - run: npm --prefix website run build
+
+  tdd-guard:
+    name: TDD Guard (dogfood the action)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # A real assertion red must pass --assert-red.
+      - id: real
+        uses: ./actions/cairn-classify
+        with:
+          file: actions/cairn-classify/fixtures/real-red.txt
+          assert-red: 'true'
+      - name: Verify the verdict
+        env:
+          KIND: ${{ steps.real.outputs.kind }}
+          IS_REAL_RED: ${{ steps.real.outputs.is-real-red }}
+        run: |
+          test "$KIND" = "assertion"
+          test "$IS_REAL_RED" = "true"
+      # A missing-symbol "red" must be REJECTED by --assert-red (exit 2).
+      - name: Fake red must fail the guard
+        run: |
+          if node actions/cairn-classify/classify.mjs \
+               actions/cairn-classify/fixtures/fake-red.txt --assert-red; then
+            echo "::error::guard accepted a missing-symbol failure as a real red" && exit 1
+          fi
+          echo "guard correctly rejected the fake red ✓"

@@ -1,0 +1,248 @@
+{
+  "_comment": "Genesis ops for Cairn's own project brain. Cairn eats its own dog food: this batch was applied once with `cairn graph apply .cairn/genesis.json` to seed .cairn/graph.json (and the generated design.md + graph.mmd). It is provenance, not a re-runnable script — re-applying would create duplicate nodes. Update the live brain with `cairn graph add/edge/set` instead.",
+  "nodes": [
+    {
+      "ref": "g_continuity",
+      "type": "goal",
+      "status": "accepted",
+      "title": "AI agents that never start from zero",
+      "body": "Capture a project's intent as a typed knowledge graph committed to .cairn/, so any fresh, context-free session resumes with full understanding instead of re-interrogating the user."
+    },
+
+    {
+      "ref": "r_persist",
+      "type": "requirement",
+      "status": "accepted",
+      "title": "Persist intent as a typed knowledge graph",
+      "body": "Brainstorm output becomes typed nodes and edges in .cairn/graph.json, versioned in git right beside the code."
+    },
+    {
+      "ref": "r_resume",
+      "type": "requirement",
+      "status": "accepted",
+      "title": "Resume full context in a fresh session",
+      "body": "A context-free agent reads a stable resume brief: goals, accepted decisions, components with their dependencies, open questions, and suggested next actions."
+    },
+    {
+      "ref": "r_tdd",
+      "type": "requirement",
+      "status": "accepted",
+      "title": "Guarantee test-first builds",
+      "body": "Every unit starts from a provably real red — a behavioral assertion that exercised the unit — never a missing-symbol error mistaken for a failing test."
+    },
+    {
+      "ref": "r_router",
+      "type": "requirement",
+      "status": "accepted",
+      "title": "Install missing capabilities on demand",
+      "body": "When a request needs a capability Cairn doesn't ship, discover and install the right skill from the open agent-skills ecosystem after checking the built-ins first."
+    },
+
+    {
+      "ref": "d_mono",
+      "type": "decision",
+      "status": "accepted",
+      "title": "pnpm monorepo, TypeScript strict ESM, Vitest + Biome",
+      "body": "One workspace, three packages, strict types, ESM only, no legacy or back-compat shims."
+    },
+    {
+      "ref": "d_pure",
+      "type": "decision",
+      "status": "accepted",
+      "title": "Keep the core engine pure and deterministic",
+      "body": "The clock and session id are injected, so identical operations always produce an identical committed graph across machines."
+    },
+    {
+      "ref": "d_classify",
+      "type": "decision",
+      "status": "accepted",
+      "title": "Classify a real red vs a missing-symbol",
+      "body": "Precedence is collection -> missing-symbol -> assertion -> pass -> unknown; only a clean assertion counts as a legitimate red to build against."
+    },
+    {
+      "ref": "d_studio",
+      "type": "decision",
+      "status": "accepted",
+      "title": "Studio is a zero-dependency Node server + self-contained HTML wizard",
+      "body": "A CSRF-guarded live browser session for brainstorming, with a static wizard fallback for headless environments."
+    },
+    {
+      "ref": "d_skills",
+      "type": "decision",
+      "status": "accepted",
+      "title": "Ship skills on the Vercel `npx skills` open standard",
+      "body": "Install with `npx skills add AnkushBL6/cairn@<skill>`; works across Claude Code, Cursor, Copilot and 18+ agents."
+    },
+    {
+      "ref": "d_edges",
+      "type": "decision",
+      "status": "accepted",
+      "title": "Enforce a typed edge-legality table",
+      "body": "An edge is only allowed when its (type, from-type, to-type) triple is semantically valid, so the graph can never encode a nonsensical relationship."
+    },
+
+    {
+      "ref": "c_core",
+      "type": "component",
+      "status": "done",
+      "title": "@cairn/core",
+      "body": "The pure graph engine: typed nodes/edges, integrity invariants, the Mermaid + design-doc renderers, the resume brief, and the test-failure classifier. Built 100% test-first."
+    },
+    {
+      "ref": "c_studio",
+      "type": "component",
+      "status": "done",
+      "title": "@cairn/studio",
+      "body": "Zero-dependency Node server plus a world-class self-contained HTML brainstorming wizard, with a static fallback."
+    },
+    {
+      "ref": "c_cli",
+      "type": "component",
+      "status": "done",
+      "title": "@cairn/cli",
+      "body": "The `cairn` command that wires the engine and studio to disk: init, studio, ingest, graph, resume, classify."
+    },
+    {
+      "ref": "c_skills",
+      "type": "component",
+      "status": "done",
+      "title": "Cairn skillpack (six skills)",
+      "body": "brainstorm, resume, tdd, frontend, backend, router — each reads the project graph instead of re-interrogating the user."
+    },
+    {
+      "ref": "c_site",
+      "type": "component",
+      "status": "done",
+      "title": "Marketing website + docs",
+      "body": "Production-grade Next.js site (standalone, Lighthouse 99/100/100/100) with docs pages and an interactive graph playground."
+    },
+    {
+      "ref": "c_action",
+      "type": "component",
+      "status": "open",
+      "title": "Cairn TDD Guard GitHub Action",
+      "body": "A reusable composite Action wrapping the classifier so any repository can enforce guaranteed-TDD on pull requests."
+    },
+
+    {
+      "ref": "k_node",
+      "type": "constraint",
+      "status": "accepted",
+      "title": "Node >= 22, ESM only, no legacy code",
+      "body": "Only clean, current code ships — no back-compat shims, no dead paths (noUnusedLocals/Parameters on)."
+    },
+    {
+      "ref": "k_purecore",
+      "type": "constraint",
+      "status": "accepted",
+      "title": "No filesystem or ambient I/O in @cairn/core",
+      "body": "All disk I/O lives in the CLI store, so the engine stays pure, deterministic, and trivially testable."
+    },
+    {
+      "ref": "k_vercel",
+      "type": "constraint",
+      "status": "accepted",
+      "title": "Vercel CLI must be >= 54",
+      "body": "The old 39.x used a discontinued login flow that just opened a changelog page; deploy with a modern CLI."
+    },
+
+    {
+      "ref": "q_npm",
+      "type": "question",
+      "status": "open",
+      "title": "Publish @cairn/* to npm?",
+      "body": "Today install is only `npx skills add`; npm publishing would enable `npm i @cairn/core` plus a tagged release pipeline (Changesets)."
+    },
+    {
+      "ref": "q_hosted",
+      "type": "question",
+      "status": "open",
+      "title": "Host the studio brainstorming wizard online?",
+      "body": "A hosted playground would let people try the typed-graph model without installing anything locally."
+    },
+
+    {
+      "ref": "x_drift",
+      "type": "risk",
+      "status": "open",
+      "title": "Classifier drift between core and the Action",
+      "body": "The zero-install Action vendors the classifier; without a parity test it can silently diverge from @cairn/core."
+    },
+    {
+      "ref": "x_migrate",
+      "type": "risk",
+      "status": "open",
+      "title": "Graph schema migrations",
+      "body": "GraphDoc is version 1; evolving the node/edge vocabulary will need a migration path so old committed brains still load."
+    },
+
+    {
+      "ref": "t_classify",
+      "type": "test",
+      "status": "done",
+      "title": "classify-failure unit suite",
+      "body": "Locks the precedence and the real-red boundary that the whole guaranteed-TDD promise rests on."
+    },
+    {
+      "ref": "t_parity",
+      "type": "test",
+      "status": "done",
+      "title": "Action <-> core classifier parity test",
+      "body": "Feeds a shared corpus to both the Action's vendored classifier and @cairn/core and asserts identical verdicts — kills drift."
+    },
+
+    {
+      "ref": "a_brain",
+      "type": "artifact",
+      "status": "done",
+      "title": "The .cairn/ project brain (graph.json)",
+      "body": "This very file's output: the committed knowledge graph a fresh session reloads."
+    },
+    {
+      "ref": "a_doc",
+      "type": "artifact",
+      "status": "done",
+      "title": "Generated design.md + graph.mmd",
+      "body": "Human-readable narrative and Mermaid diagram, regenerated from the graph on every save."
+    }
+  ],
+  "edges": [
+    { "type": "refines", "from": "r_persist", "to": "g_continuity" },
+    { "type": "refines", "from": "r_resume", "to": "g_continuity" },
+    { "type": "refines", "from": "r_tdd", "to": "g_continuity" },
+    { "type": "refines", "from": "r_router", "to": "g_continuity" },
+
+    { "type": "decided_by", "from": "r_persist", "to": "d_edges" },
+    { "type": "decided_by", "from": "r_persist", "to": "d_pure" },
+    { "type": "decided_by", "from": "r_tdd", "to": "d_classify" },
+    { "type": "decided_by", "from": "c_core", "to": "d_mono" },
+    { "type": "decided_by", "from": "c_studio", "to": "d_studio" },
+    { "type": "decided_by", "from": "r_router", "to": "d_skills" },
+    { "type": "decided_by", "from": "c_skills", "to": "d_skills" },
+
+    { "type": "depends_on", "from": "c_cli", "to": "c_core" },
+    { "type": "depends_on", "from": "c_cli", "to": "c_studio" },
+    { "type": "depends_on", "from": "c_skills", "to": "c_cli" },
+    { "type": "depends_on", "from": "c_action", "to": "c_core" },
+
+    { "type": "implements", "from": "c_core", "to": "r_persist" },
+    { "type": "implements", "from": "c_core", "to": "r_tdd" },
+    { "type": "implements", "from": "c_studio", "to": "r_persist" },
+    { "type": "implements", "from": "c_cli", "to": "r_resume" },
+    { "type": "implements", "from": "c_skills", "to": "r_router" },
+    { "type": "implements", "from": "c_action", "to": "r_tdd" },
+    { "type": "implements", "from": "a_brain", "to": "r_persist" },
+    { "type": "implements", "from": "a_doc", "to": "r_resume" },
+
+    { "type": "tests", "from": "t_classify", "to": "c_core" },
+    { "type": "tests", "from": "t_parity", "to": "c_action" },
+
+    { "type": "blocks", "from": "x_drift", "to": "c_action" },
+    { "type": "blocks", "from": "x_migrate", "to": "c_core" },
+    { "type": "blocks", "from": "q_npm", "to": "c_cli" },
+    { "type": "blocks", "from": "q_hosted", "to": "c_site" },
+    { "type": "blocks", "from": "k_vercel", "to": "c_site" },
+
+    { "type": "derived_from", "from": "a_doc", "to": "a_brain" }
+  ]
+}

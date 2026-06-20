@@ -1,0 +1,10 @@
+ FAIL  test/retry.test.ts > retryOperation > retries on failure
+TypeError: retryOperation is not a function
+ ❯ test/retry.test.ts:4:19
+      2| import { retryOperation } from '../src/retry.js';
+      3|
+      4|   const result = await retryOperation(fn, 3);
+       |                        ^
+
+Test Files  1 failed (1)
+     Tests  1 failed (1)
