@@ -1,0 +1,80 @@
+name: 'Cairn TDD Guard'
+description: >-
+  Classify a test run as a real assertion red vs. a fake (missing-symbol /
+  collection) failure, and optionally fail the job unless the red is real.
+  Enforces guaranteed-TDD on PRs. Zero install — pure Node, no dependencies.
+author: 'Cairn'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  command:
+    description: >-
+      Test command to run (its combined stdout+stderr is classified). A non-zero
+      exit is expected and does NOT fail the step — the classification decides.
+      Provide either `command` or `file`.
+    required: false
+  file:
+    description: 'Path to a file containing captured test output to classify (alternative to `command`).'
+    required: false
+  assert-red:
+    description: >-
+      When `true`, fail the job unless the output is a real assertion red. Use in
+      a TDD-guard workflow to prove a new test fails for the RIGHT reason.
+    required: false
+    default: 'false'
+
+outputs:
+  kind:
+    description: "One of: assertion | missing-symbol | collection | pass | unknown"
+    value: ${{ steps.classify.outputs.kind }}
+  is-real-red:
+    description: "'true' only for a clean assertion failure — the one legitimate starting red."
+    value: ${{ steps.classify.outputs.is-real-red }}
+  reason:
+    description: 'Human-readable explanation of the verdict and what to do next.'
+    value: ${{ steps.classify.outputs.reason }}
+
+runs:
+  using: 'composite'
+  steps:
+    # Untrusted/consumer inputs are passed via env (never expanded into the
+    # script text) to avoid GitHub Actions command injection.
+    - name: Capture test output
+      if: ${{ inputs.command != '' }}
+      shell: bash
+      env:
+        CAIRN_COMMAND: ${{ inputs.command }}
+      run: |
+        set +e
+        echo "::group::cairn-classify — running test command"
+        bash -c "$CAIRN_COMMAND" 2>&1 | tee "${RUNNER_TEMP}/cairn-test-output.txt"
+        echo "::endgroup::"
+        exit 0
+
+    - name: Resolve output file
+      id: source
+      shell: bash
+      env:
+        CAIRN_FILE: ${{ inputs.file }}
+      run: |
+        if [ -n "$CAIRN_FILE" ]; then
+          echo "path=$CAIRN_FILE" >> "$GITHUB_OUTPUT"
+        elif [ -f "${RUNNER_TEMP}/cairn-test-output.txt" ]; then
+          echo "path=${RUNNER_TEMP}/cairn-test-output.txt" >> "$GITHUB_OUTPUT"
+        else
+          echo 'cairn-classify: provide either the `command` or `file` input.' >&2
+          exit 1
+        fi
+
+    - name: Classify
+      id: classify
+      shell: bash
+      env:
+        CAIRN_OUTPUT_PATH: ${{ steps.source.outputs.path }}
+        CAIRN_ASSERT_RED: ${{ inputs.assert-red }}
+      run: |
+        ASSERT=""
+        if [ "$CAIRN_ASSERT_RED" = "true" ]; then ASSERT="--assert-red"; fi
+        node "${GITHUB_ACTION_PATH}/classify.mjs" "$CAIRN_OUTPUT_PATH" $ASSERT

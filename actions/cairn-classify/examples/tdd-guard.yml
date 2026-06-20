@@ -1,0 +1,31 @@
+# Example: enforce guaranteed-TDD on pull requests.
+#
+# Copy this into a consumer repo as `.github/workflows/tdd-guard.yml`. It runs
+# the test suite and fails the PR unless the suite fails for the RIGHT reason —
+# a real assertion red, not a missing symbol. Pair it with a branch-protection
+# rule (or only require it on PRs labelled `tdd`) so it gates the red phase of a
+# red→green commit pair, not your green main branch.
+
+name: TDD Guard
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+jobs:
+  guard:
+    # Only gate PRs explicitly in the "red" phase of TDD.
+    if: contains(github.event.pull_request.labels.*.name, 'tdd-red')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      - name: Assert the new test is a real red
+        uses: AnkushBL6/cairn/actions/cairn-classify@main
+        with:
+          command: npm test
+          assert-red: 'true'
