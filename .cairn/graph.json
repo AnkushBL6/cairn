@@ -146,7 +146,7 @@
       "type": "component",
       "title": "Cairn skillpack (six skills)",
       "body": "brainstorm, resume, tdd, frontend, backend, router — each reads the project graph instead of re-interrogating the user.",
-      "status": "done",
+      "status": "superseded",
       "tags": [],
       "createdInSession": "cli",
       "createdAt": "2026-06-20T16:52:01.280Z"
@@ -280,6 +280,16 @@
       "tags": [],
       "createdInSession": "cli",
       "createdAt": "2026-06-20T16:52:01.280Z"
+    },
+    {
+      "id": "component--cairn-skillpack-seven-skills",
+      "type": "component",
+      "title": "Cairn skillpack (seven skills)",
+      "body": "brainstorm, resume, tdd, frontend, backend, review, router — each reads the project graph instead of re-interrogating the user.",
+      "status": "done",
+      "tags": [],
+      "createdInSession": "cli",
+      "createdAt": "2026-06-20T17:48:13.851Z"
     }
   ],
   "edges": [
@@ -468,6 +478,24 @@
       "type": "derived_from",
       "from": "artifact--generated-design-md-graph-mmd",
       "to": "artifact--the-cairn-project-brain-graph-json"
+    },
+    {
+      "id": "component--cairn-skillpack-seven-skills__depends_on__component--cairn-cli",
+      "type": "depends_on",
+      "from": "component--cairn-skillpack-seven-skills",
+      "to": "component--cairn-cli"
+    },
+    {
+      "id": "component--cairn-skillpack-seven-skills__supersedes__component--cairn-skillpack-six-skills",
+      "type": "supersedes",
+      "from": "component--cairn-skillpack-seven-skills",
+      "to": "component--cairn-skillpack-six-skills"
+    },
+    {
+      "id": "component--cairn-skillpack-seven-skills__implements__requirement--install-missing-capabilities-on-demand",
+      "type": "implements",
+      "from": "component--cairn-skillpack-seven-skills",
+      "to": "requirement--install-missing-capabilities-on-demand"
     }
   ]
 }

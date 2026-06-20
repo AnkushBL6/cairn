@@ -38,7 +38,7 @@ export function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
       })}
 
       <p className="mt-5 px-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-ink-soft/70">
-        The six skills
+        The seven skills
       </p>
 
       {SKILL_DOCS.map((doc) => {

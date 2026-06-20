@@ -305,6 +305,62 @@ export const SKILL_DOCS: SkillDoc[] = [
     ],
   },
   {
+    ...base('cairn-review'),
+    description:
+      'Use when reviewing a change, diff, or PR before merge. Reviews the work against the project graph — does it satisfy the requirements, decisions, and constraints it claims, is every new symbol tested (no orphan code), and does the graph still tell the truth?',
+    principle: 'Review against the spec, not just the style. The graph is the spec.',
+    install: 'npx skills add AnkushBL6/cairn@cairn-review',
+    whenToUse: [
+      'Before merging any change, diff, or PR of consequence.',
+      "When you pick up someone else's branch and need to judge whether it's done.",
+      'After a build skill finishes a component, as the gate before it ships.',
+    ],
+    sections: [
+      {
+        heading: 'Review against the graph, not your taste',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'The graph already holds the requirements, the accepted decisions, and the hard constraints — so map the diff to the nodes it claims to advance and measure it against the spec. A change with no home in the graph is the first finding: either scope creep, or a missing node.',
+          },
+          { kind: 'cmd', command: 'cairn resume' },
+          { kind: 'cmd', command: 'cairn graph show' },
+        ],
+      },
+      {
+        heading: 'The standard (graph-grounded)',
+        blocks: [
+          {
+            kind: 'list',
+            items: [
+              'Conformance — every changed area traces to a requirement or component node it actually satisfies, not a vaguer neighbour.',
+              'Decisions honoured — no accepted decision is quietly violated; a deliberate change supersedes it on the record.',
+              'Constraints are gates, not goals — every relevant constraint (a11y, latency, compliance) is met now, not deferred.',
+              'Proof of test (G1–G4) — new logic arrived test-first, exercised at its real path, with no orphan untested symbols.',
+              'Surgical — every changed line traces to the task; flag drive-by refactors and reformatting.',
+              'The graph still tells the truth — new components/tests recorded, statuses updated, resolved questions closed.',
+            ],
+          },
+          {
+            kind: 'p',
+            text: 'Verify the tests rather than trust them — the same classifier the cairn-tdd skill and the CI TDD Guard use:',
+          },
+          { kind: 'cmd', command: 'npm test 2>&1 | cairn classify' },
+        ],
+      },
+      {
+        heading: 'The verdict',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Be decisive and specific: each finding names the node it offends and what to do. Approve only when the change satisfies its node, honours the decisions, meets the constraints, and leaves the graph truthful — then record the status change so the next session inherits reality.',
+          },
+          { kind: 'cmd', command: 'cairn graph set component--paymentform --status done' },
+        ],
+      },
+    ],
+  },
+  {
     ...base('cairn-router'),
     description:
       'Use when a request needs a capability Cairn\'s own skills don\'t cover (e.g. "work with PDFs", "set up Stripe", "write Terraform"). Discovers and installs the right skill on demand from the open agent-skills ecosystem via npx skills, after checking Cairn\'s built-in skills first.',

@@ -44,6 +44,13 @@ export const SKILLS: Skill[] = [
     accent: '#b4530a',
   },
   {
+    name: 'cairn-review',
+    title: 'Review',
+    tagline: 'Review a change against the graph — does it satisfy the requirements, decisions, and constraints it claims?',
+    glyph: '◎',
+    accent: '#4d7c0f',
+  },
+  {
     name: 'cairn-router',
     title: 'Skill Router',
     tagline: 'Need a capability we don’t ship? Discover and install it on demand.',
