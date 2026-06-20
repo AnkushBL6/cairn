@@ -37,6 +37,7 @@ idea ─▶ interactive studio ─▶ knowledge graph (.cairn/) ─▶ test-firs
 | **cairn-tdd** | Build test-first with tool-enforced guarantees (a real red, not "function not found"). |
 | **cairn-frontend** | Build world-class, accessible UI driven by the graph. |
 | **cairn-backend** | Build typed, observable services with logic built test-first. |
+| **cairn-review** | Review a change against the graph — conformance to requirements, decisions, constraints, and no orphan code (G4). |
 | **cairn-router** | Discover & install any other skill on demand (`npx skills`). |
 
 > The build skills stand on the best in the ecosystem: **cairn-frontend** folds in Vercel's React best-practices (kill waterfalls, server-first, bundle discipline), **cairn-backend** folds in Vercel Functions runtime constraints, and all of them adopt **Andrej Karpathy's** coding principles — think before coding, simplicity first, surgical changes, goal-driven verification.
@@ -112,7 +113,7 @@ Cairn eats its own dog food. This repository carries its **own** project brain i
   • [done] @cairn/core
   • [done] @cairn/studio
   • [done] @cairn/cli (depends on: @cairn/core, @cairn/studio)
-  • [done] Cairn skillpack (six skills) (depends on: @cairn/cli)
+  • [done] Cairn skillpack (seven skills) (depends on: @cairn/cli)
   • [done] Marketing website + docs
   • [done] Cairn TDD Guard GitHub Action (depends on: @cairn/core)
 
@@ -125,7 +126,7 @@ Cairn eats its own dog food. This repository carries its **own** project brain i
 The full narrative lives in [`.cairn/design.md`](.cairn/design.md) (regenerated from the graph on every save). Here is the live graph, rendered straight from [`.cairn/graph.mmd`](.cairn/graph.mmd):
 
 <details>
-<summary><strong>The Cairn knowledge graph</strong> (28 nodes · 31 edges)</summary>
+<summary><strong>The Cairn knowledge graph</strong> (28 live nodes · 30 edges)</summary>
 
 ```mermaid
 flowchart TD
@@ -140,7 +141,7 @@ flowchart TD
   n_component__cairn_core["component: @cairn/core"]
   n_component__cairn_studio["component: @cairn/studio"]
   n_component__cairn_cli["component: @cairn/cli"]
-  n_component__cairn_skillpack_six_skills["component: Cairn skillpack (six skills)"]
+  n_component__cairn_skillpack_seven_skills["component: Cairn skillpack (seven skills)"]
   n_component__cairn_tdd_guard_github_action["component: Cairn TDD Guard GitHub Action"]
   n_question__publish_cairn_to_npm["question: Publish @cairn/* to npm?"]
   n_risk__classifier_drift_between_core_and_the_action["risk: Classifier drift between core and the Action"]
@@ -154,12 +155,12 @@ flowchart TD
   n_requirement__guarantee_test_first_builds -->|decided_by| n_decision__classify_a_real_red_vs_a_missing_symbol
   n_component__cairn_cli -->|depends_on| n_component__cairn_core
   n_component__cairn_cli -->|depends_on| n_component__cairn_studio
-  n_component__cairn_skillpack_six_skills -->|depends_on| n_component__cairn_cli
+  n_component__cairn_skillpack_seven_skills -->|depends_on| n_component__cairn_cli
   n_component__cairn_tdd_guard_github_action -->|depends_on| n_component__cairn_core
   n_component__cairn_core -->|implements| n_requirement__persist_intent_as_a_typed_knowledge_graph
   n_component__cairn_core -->|implements| n_requirement__guarantee_test_first_builds
   n_component__cairn_cli -->|implements| n_requirement__resume_full_context_in_a_fresh_session
-  n_component__cairn_skillpack_six_skills -->|implements| n_requirement__install_missing_capabilities_on_demand
+  n_component__cairn_skillpack_seven_skills -->|implements| n_requirement__install_missing_capabilities_on_demand
   n_component__cairn_tdd_guard_github_action -->|implements| n_requirement__guarantee_test_first_builds
   n_test__action_core_classifier_parity_test -->|tests| n_component__cairn_tdd_guard_github_action
   n_risk__classifier_drift_between_core_and_the_action -->|blocks| n_component__cairn_tdd_guard_github_action

@@ -8,7 +8,7 @@ license: MIT
 
 ## Overview
 
-Cairn is an open-ended pack: it ships a strong core (brainstorm, resume, tdd, frontend, backend) and **reaches for more when a task needs it**. This skill is the dispatcher. It routes to a Cairn skill when one fits, and otherwise discovers and installs a skill from the ecosystem so you don't have to improvise a capability you could simply *acquire*.
+Cairn is an open-ended pack: it ships a strong core (brainstorm, resume, tdd, frontend, backend, review) and **reaches for more when a task needs it**. This skill is the dispatcher. It routes to a Cairn skill when one fits, and otherwise discovers and installs a skill from the ecosystem so you don't have to improvise a capability you could simply *acquire*.
 
 **Core principle:** Prefer a vetted, installed skill over winging it. If the work is common, someone has packaged the expertise.
 
@@ -21,6 +21,7 @@ Cairn is an open-ended pack: it ships a strong core (brainstorm, resume, tdd, fr
 | Implementing logic / a bugfix | `cairn-tdd` |
 | Building UI (web/mobile) | `cairn-frontend` |
 | Building a service / API / data layer | `cairn-backend` |
+| Reviewing a change / PR against the graph before merge | `cairn-review` |
 | **A capability none of the above covers** | **Find & install (below)** |
 
 ## Find & install a skill

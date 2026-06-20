@@ -23,9 +23,9 @@
 - **@cairn/core** _(done)_ — The pure graph engine: typed nodes/edges, integrity invariants, the Mermaid + design-doc renderers, the resume brief, and the test-failure classifier. Built 100% test-first.
 - **@cairn/studio** _(done)_ — Zero-dependency Node server plus a world-class self-contained HTML brainstorming wizard, with a static fallback.
 - **@cairn/cli** _(done)_ — The `cairn` command that wires the engine and studio to disk: init, studio, ingest, graph, resume, classify.
-- **Cairn skillpack (six skills)** _(done)_ — brainstorm, resume, tdd, frontend, backend, router — each reads the project graph instead of re-interrogating the user.
 - **Marketing website + docs** _(done)_ — Production-grade Next.js site (standalone, Lighthouse 99/100/100/100) with docs pages and an interactive graph playground.
 - **Cairn TDD Guard GitHub Action** _(done)_ — A reusable composite GitHub Action wrapping the classifier so any repo enforces guaranteed-TDD on PRs. Ships a zero-dependency vendored classifier kept in lockstep with @cairn/core by a parity test.
+- **Cairn skillpack (seven skills)** _(done)_ — brainstorm, resume, tdd, frontend, backend, review, router — each reads the project graph instead of re-interrogating the user.
 
 ## Constraints
 - **Node >= 22, ESM only, no legacy code** _(accepted)_ — Only clean, current code ships — no back-compat shims, no dead paths (noUnusedLocals/Parameters on).
@@ -58,7 +58,6 @@ flowchart TD
   n_component__cairn_core["component: @cairn/core"]
   n_component__cairn_studio["component: @cairn/studio"]
   n_component__cairn_cli["component: @cairn/cli"]
-  n_component__cairn_skillpack_six_skills["component: Cairn skillpack (six skills)"]
   n_component__marketing_website_docs["component: Marketing website + docs"]
   n_component__cairn_tdd_guard_github_action["component: Cairn TDD Guard GitHub Action"]
   n_constraint__node_22_esm_only_no_legacy_code["constraint: Node >= 22, ESM only, no legacy code"]
@@ -72,6 +71,7 @@ flowchart TD
   n_test__action_core_classifier_parity_test["test: Action <-> core classifier parity test"]
   n_artifact__the_cairn_project_brain_graph_json["artifact: The .cairn/ project brain (graph.json)"]
   n_artifact__generated_design_md_graph_mmd["artifact: Generated design.md + graph.mmd"]
+  n_component__cairn_skillpack_seven_skills["component: Cairn skillpack (seven skills)"]
   n_requirement__persist_intent_as_a_typed_knowledge_graph -->|refines| n_goal__ai_agents_that_never_start_from_zero
   n_requirement__resume_full_context_in_a_fresh_session -->|refines| n_goal__ai_agents_that_never_start_from_zero
   n_requirement__guarantee_test_first_builds -->|refines| n_goal__ai_agents_that_never_start_from_zero
@@ -82,16 +82,13 @@ flowchart TD
   n_component__cairn_core -->|decided_by| n_decision__pnpm_monorepo_typescript_strict_esm_vitest_biome
   n_component__cairn_studio -->|decided_by| n_decision__studio_is_a_zero_dependency_node_server_self_contained_html
   n_requirement__install_missing_capabilities_on_demand -->|decided_by| n_decision__ship_skills_on_the_vercel_npx_skills_open_standard
-  n_component__cairn_skillpack_six_skills -->|decided_by| n_decision__ship_skills_on_the_vercel_npx_skills_open_standard
   n_component__cairn_cli -->|depends_on| n_component__cairn_core
   n_component__cairn_cli -->|depends_on| n_component__cairn_studio
-  n_component__cairn_skillpack_six_skills -->|depends_on| n_component__cairn_cli
   n_component__cairn_tdd_guard_github_action -->|depends_on| n_component__cairn_core
   n_component__cairn_core -->|implements| n_requirement__persist_intent_as_a_typed_knowledge_graph
   n_component__cairn_core -->|implements| n_requirement__guarantee_test_first_builds
   n_component__cairn_studio -->|implements| n_requirement__persist_intent_as_a_typed_knowledge_graph
   n_component__cairn_cli -->|implements| n_requirement__resume_full_context_in_a_fresh_session
-  n_component__cairn_skillpack_six_skills -->|implements| n_requirement__install_missing_capabilities_on_demand
   n_component__cairn_tdd_guard_github_action -->|implements| n_requirement__guarantee_test_first_builds
   n_artifact__the_cairn_project_brain_graph_json -->|implements| n_requirement__persist_intent_as_a_typed_knowledge_graph
   n_artifact__generated_design_md_graph_mmd -->|implements| n_requirement__resume_full_context_in_a_fresh_session
@@ -103,4 +100,6 @@ flowchart TD
   n_question__host_the_studio_brainstorming_wizard_online -->|blocks| n_component__marketing_website_docs
   n_constraint__vercel_cli_must_be_54 -->|blocks| n_component__marketing_website_docs
   n_artifact__generated_design_md_graph_mmd -->|derived_from| n_artifact__the_cairn_project_brain_graph_json
+  n_component__cairn_skillpack_seven_skills -->|depends_on| n_component__cairn_cli
+  n_component__cairn_skillpack_seven_skills -->|implements| n_requirement__install_missing_capabilities_on_demand
 ```

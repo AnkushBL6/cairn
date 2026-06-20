@@ -246,6 +246,8 @@ export function Playground() {
                   }
                 }}
               >
+                {/* generous transparent hit area — the whole node is clickable */}
+                <circle r={24} fill="transparent" />
                 {/* focus/select halo */}
                 <circle
                   className="hit motion-safe:transition-all"

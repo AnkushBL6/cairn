@@ -241,7 +241,7 @@ export default function Home() {
             <div className="mx-auto max-w-2xl text-center">
               <p className="eyebrow">// one pack, end to end</p>
               <h2 className="mt-6 font-display text-4xl font-semibold leading-tight tracking-[-0.01em] text-ink text-balance sm:text-5xl">
-                Six skills that share one brain.
+                Seven skills that share one brain.
               </h2>
               <p className="mt-5 leading-relaxed text-stone-600">
                 Each skill reads the graph instead of re-interrogating you. Open-ended by design —

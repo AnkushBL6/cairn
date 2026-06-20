@@ -26,6 +26,9 @@ pnpm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 
+# browser-QA scratch output (Playwright MCP)
+.playwright-mcp/
+
 # env
 .env
 .env.*

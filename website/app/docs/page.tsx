@@ -7,7 +7,7 @@ import { SKILL_DOCS } from '@/lib/docs';
 export const metadata: Metadata = {
   title: 'Docs',
   description:
-    'How Cairn works: the typed knowledge graph, the four TDD guarantees, and the six skills that share one brain.',
+    'How Cairn works: the typed knowledge graph, the four TDD guarantees, and the seven skills that share one brain.',
 };
 
 const NODE_TYPES = [
@@ -130,7 +130,7 @@ export default function DocsIndex() {
       {/* The skills */}
       <Reveal delay={80}>
         <section className="mt-16">
-          <h2 className="font-display text-2xl font-semibold text-ink">The six skills</h2>
+          <h2 className="font-display text-2xl font-semibold text-ink">The seven skills</h2>
           <p className="mt-3 leading-relaxed text-stone-600">
             Each reads the graph instead of re-interrogating you. Open the one you need.
           </p>
