@@ -15,7 +15,7 @@ export default function PlaygroundPage() {
   return (
     <div id="top">
       <Nav />
-      <section className="container-page py-12 lg:py-16">
+      <main className="container-page py-12 lg:py-16">
         <Reveal>
           <p className="eyebrow">// interactive</p>
           <h1 className="mt-5 max-w-3xl font-display text-4xl font-semibold leading-[1.04] tracking-[-0.01em] text-ink text-balance sm:text-5xl">
@@ -45,7 +45,7 @@ export default function PlaygroundPage() {
             .
           </p>
         </Reveal>
-      </section>
+      </main>
       <Footer />
     </div>
   );

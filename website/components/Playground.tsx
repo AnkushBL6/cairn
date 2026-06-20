@@ -296,9 +296,9 @@ export function Playground() {
                   {selectedNode.status}
                 </span>
               </div>
-              <h3 className="mt-3 font-display text-lg font-semibold text-ink">
+              <h2 className="mt-3 font-display text-lg font-semibold text-ink">
                 {selectedNode.title}
-              </h3>
+              </h2>
               <p className="mt-2 text-sm leading-relaxed text-stone-600">{selectedNode.body}</p>
 
               {(outgoing.length > 0 || incoming.length > 0) && (
@@ -391,7 +391,11 @@ export function Playground() {
               {copied ? '✓ Copied' : 'Copy'}
             </button>
           </div>
-          <pre className="max-h-72 overflow-auto p-4 font-mono text-[11.5px] leading-relaxed text-[#d8d9c7]">
+          <pre
+            tabIndex={0}
+            aria-label="Mermaid graph source"
+            className="max-h-72 overflow-auto p-4 font-mono text-[11.5px] leading-relaxed text-[#d8d9c7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-acid-bright"
+          >
             <code>{mermaid}</code>
           </pre>
         </div>
