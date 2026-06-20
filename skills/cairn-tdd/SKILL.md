@@ -134,6 +134,22 @@ cairn graph apply ops.json   # a test node + a `tests` edge to the component/req
 }
 ```
 
+## Lock G1 into CI
+
+G1 is easy to honor by hand and easy to forget. The same classifier ships as a
+zero-install GitHub Action, so a red-phase PR can be *gated* on a real assertion
+red instead of trusting the honor system:
+
+```yaml
+- uses: AnkushBL6/cairn/actions/cairn-classify@main
+  with:
+    command: npm test
+    assert-red: 'true'   # exit 2 unless the failure is a real assertion red
+```
+
+Apply it on the red commit of a red→green pair (e.g. behind a `tdd-red` label) so
+"function not found, ship it anyway" can't pass review. See `actions/cairn-classify`.
+
 ## Red Flags
 
 | Thought | Reality |
